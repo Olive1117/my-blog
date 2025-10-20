@@ -1,0 +1,9 @@
+
+html {
+  /* font-family: Arial, Helvetica; */
+  font-family: var(--main-font-family);
+}
+
+:root {
+    --main-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
