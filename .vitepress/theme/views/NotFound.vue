@@ -6,10 +6,15 @@
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .not-found {
+    display: flex;
     flex-direction: column;
     text-align: center;
     background-color: tomato;
+    justify-content: center;
+    align-self: center;
+    height: 80vh;
+    width: 100%;
 }
 </style>
