@@ -19,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     height: 10vh;
+    z-index: 10000;
 }
 
 .logo,
@@ -31,5 +32,8 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+a {
+    background-color: bisque;
 }
 </style>

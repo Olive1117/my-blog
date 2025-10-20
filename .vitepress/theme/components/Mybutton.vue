@@ -1,19 +1,21 @@
 <template>
-    <button >
+    <el-button :loading="loading" @click="handleClick">I am ElButton
         <slot></slot>
-    </button>
+    </el-button>
 </template>
 
 <script setup>
+import { ElButton } from 'element-plus'
+import { useAttrs } from 'vue'
 const attrs = useAttrs()
 
 async function handleClick() {
-    
+    loading.value = true
     try {
         console.log('clicked')
-        await attrs.onClick()?.()        
+        await attrs.onClick?.()        
     }finally {
-        console.log('finally')
+        loading.value = false
     }
 }
 </script>

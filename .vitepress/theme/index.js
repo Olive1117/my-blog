@@ -12,12 +12,14 @@
 
 import { h } from "vue";
 import App from "./App.vue";
-// import "./style.css";
-import "./style/main.css";
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import "./style/main.scss";
 
 const Theme = {
   Layout: () => h(App),
   enhanceApp({ app, router, siteData }) {
+    app.use(ElementPlus)
   }
 };
 
