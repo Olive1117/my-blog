@@ -13,6 +13,7 @@
     // align-self: center;
     text-align: center;
     background-color: #f5f5f5;
-
+    margin: 25px 0;
+    line-height: 50px;
 }
 </style>

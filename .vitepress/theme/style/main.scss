@@ -1,3 +1,5 @@
+@use "./scrollbar.scss";
+
 /* 全局颜色变量 */
 :root {
   --main-font-color: #333;
@@ -6,10 +8,6 @@
     Cantarell, "Helvetica Neue", sans-serif;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
 
 /* 字体 */
 html {

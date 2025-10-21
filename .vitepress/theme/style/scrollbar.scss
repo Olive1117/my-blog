@@ -1,0 +1,53 @@
+/* ----------------------------------
+   1. 解决布局抖动（推荐）
+   ---------------------------------- */
+body {
+    scrollbar-gutter: stable; /* 现代浏览器：预留空间，防抖动 */
+    overflow-y: scroll;       /* 兼容方案：强制显示，防抖动 */
+}
+
+/* ----------------------------------
+   2. WebKit 浏览器 (Chrome, Safari, Edge)
+   ---------------------------------- */
+
+/* 整个滚动条 */
+body::-webkit-scrollbar {
+    width: 8px; /* 垂直滚动条宽度 */
+    height: 8px; /* 水平滚动条高度 */
+}
+
+/* 轨道背景 (极淡/透明) */
+body::-webkit-scrollbar-track {
+    background: #000000; /* 极浅灰或直接 transparent */
+    // background: transparent; /* 极浅灰或直接 transparent */
+    border-radius: 0;
+}
+
+/* 滚动滑块 */
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(180, 180, 180, 0.7); /* 浅灰半透明 */
+    border-radius: 4px;
+}
+
+/* 滑块悬停效果 */
+body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(100, 100, 100, 0.9); /* 悬停时加深 */
+}
+
+
+/* ----------------------------------
+   3. Firefox 浏览器兼容
+   ---------------------------------- */
+// body {
+//     scrollbar-width: thin; /* 变细 */
+//     scrollbar-color: rgba(180, 180, 180, 0.7) #f0f0f0; /* 滑块颜色 轨道颜色 */
+// }
+/* ----------------------------------
+   3. Firefox 浏览器兼容
+   ---------------------------------- */
+@-moz-document url-prefix() {
+    body {
+        scrollbar-width: thin; /* 变细 */
+        scrollbar-color: rgba(180, 180, 180, 0.7) #f0f0f0; /* 滑块颜色 轨道颜色 */
+    }
+}

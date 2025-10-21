@@ -4,8 +4,8 @@
 
         <nav class="menu">
             <a href="/">首页</a>
-            <a href="pages/markdown-examples.html">Markdown Examples</a>
-            <a href="/api-examples.html">API Examples</a>
+            <a href="/posts/markdown-examples.html">Markdown Examples</a>
+            <a href="/posts/api-examples.html">API Examples</a>
         </nav>
     </header>
 </template>
@@ -20,7 +20,6 @@
     align-items: center;
     height: 10vh;
     z-index: 10000;
-    margin-bottom: 25px;
 }
 
 .logo,
