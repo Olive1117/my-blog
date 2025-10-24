@@ -1,7 +1,8 @@
 <template>
-    <h1>标签列表</h1>
+    <!-- <h1>标签列表</h1> -->
     <div class="type-bar">
         <div class="all-type">
+            <a href="/" class="type-home">首页</a>
             <a 
                 v-for="(item, key, index) in type"
                 :key="index"
@@ -11,7 +12,7 @@
                 {{ key }}
             </a>
         </div>
-        <a href="/page/categories" class="more-type">全部</a>
+        <a href="/page/categories" class="type-more">全部</a>
     </div>
 </template>
 
@@ -34,7 +35,7 @@ const type = ref({
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 0;
     background-color: bisque;
     white-space: nowrap;
     .all-type {
@@ -56,7 +57,7 @@ const type = ref({
             background-color: chartreuse;
         }
     }
-    .more-type {
+    .type-more {
         // margin-left: auto;
         background-color: aquamarine;
         z-index: 100;

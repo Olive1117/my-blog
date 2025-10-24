@@ -1,6 +1,6 @@
 <template>
     <Banner />
-    <h1>HALLO!!! this home!</h1>
+    <!-- <h1>HALLO!!! this home!</h1> -->
     <div class="home-content">
         <TypeBar />
         <PostList />
