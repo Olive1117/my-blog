@@ -13,5 +13,6 @@ export default defineConfig({
       { text: "Guide", link: "/guide/" },
       { text: "About", link: "/about/" }
     ]
-  }
+  },
+  cleanUrls: true,
 })
