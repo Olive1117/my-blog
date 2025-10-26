@@ -4,9 +4,9 @@
         <div class="all-type">
             <a href="/" class="type-home">首页</a>
             <a 
-                v-for="(item, key, index) in type"
+                v-for="(value, key, index) in theme?.categoriesData"
                 :key="index"
-                :href="`/page/categories/${key}?count=${item}`" 
+                :href="`/page/categories/${key}?count=${value.count}`" 
                 class="type-item"
             >
                 {{ key }}
@@ -17,17 +17,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const type = ref({
-    "标签1": 1,
-    "标签2": 4,
-    "标签3": 7,
-    "标签5": 3,
-    "标签6": 3,
-    "标签7": 3,
-    "标签8": 7,
-    "标签9": 3,
-})
+// import { ref } from 'vue'
+// const type = ref({
+//     "标签1": 1,
+//     "标签2": 4,
+//     "标签3": 7,
+//     "标签5": 3,
+//     "标签6": 3,
+//     "标签7": 3,
+//     "标签8": 7,
+//     "标签9": 3,
+// })
+import { useData } from 'vitepress';
+const { theme } = useData();
+// console.log(theme.value.categoriesData);
 </script>
 
 <style lang="scss" scoped>

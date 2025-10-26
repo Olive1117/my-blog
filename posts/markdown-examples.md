@@ -1,3 +1,7 @@
+---
+categories: [分类测试]
+tags: [练习]
+---
 # Markdown Extension Examples
 
 This page demonstrates some of the built-in markdown extensions provided by VitePress.

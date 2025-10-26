@@ -18,6 +18,6 @@ import TypeBar from '../components/TypeBar.vue';
 <style lang="scss" scoped>
 .home-content {
     background-color: rgb(255, 184, 158);
-    // padding: 20px;
+    // padding: 40px;
 }
 </style>

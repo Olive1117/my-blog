@@ -3,26 +3,26 @@
     <div class="post-list">
 
         <div 
-            v-for="(item, key, index) in source"
+            v-for="(item, key, index) in theme.postData"
             :key="index"
             class="post-item"
         >
-            <div class="post-img">图片</div>
+            <div v-if="item?.img" class="post-img">图片</div>
             <div class="post-content">
                 <div class="post-category">
-                    <span class="post-type">
+                    <span v-for="cat in item?.categories" class="post-type">
                         <i>图标</i>
-                        {{ item.type }}
+                        {{ cat }}
                     </span>
                 </div>
                 <span class="post-title">{{ item.title }}</span>
-                <span class="post-desc">{{ item.excerpt }}</span>
+                <span class="post-desc">{{ item.description }}</span>
                 <div class="post-meta">
                     <span v-for="(value, key, index) in item?.tags" class="post-tag">
                         <i>#</i>
                         {{ value }}
                     </span>
-                    <span class="post-date">{{ item.date }}</span>
+                    <span class="post-date">{{ formatDate(item.date, YYYY-MM-DD) }}</span>
                 </div>
             </div>
         </div>
@@ -50,6 +50,9 @@ const source = ref({
         tags: ["VitePress", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue"]
     }
 });
+import { useData } from 'vitepress';
+import { formatDate } from '../utils/timeTools.mjs';
+const { theme } = useData();
 </script>
 
 <style lang="scss" scoped>
@@ -64,7 +67,7 @@ const source = ref({
         display: flex;
         // justify-content: space-between;
         flex-direction: row;
-        // flex-direction: row-reverse;
+        flex-direction: row-reverse;
         align-items: stretch;
         gap: 10px;
         height: 200px;
@@ -91,7 +94,7 @@ const source = ref({
                 background-color: bisque;
                 display: flex;
                 flex-direction: row;
-                align-items: start;
+                align-items: center;
                 justify-content: flex-start;
                 gap: 5px;
             }
@@ -116,7 +119,7 @@ const source = ref({
             .post-meta {
                 display: flex;
                 flex-direction: row;
-                align-items: end;
+                align-items: center;
                 justify-content: flex-start;
                 gap: 10px;
                 flex-wrap: wrap;
