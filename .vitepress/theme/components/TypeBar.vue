@@ -6,7 +6,7 @@
             <a 
                 v-for="(value, key, index) in theme?.categoriesData"
                 :key="index"
-                :href="`/page/categories/${key}?count=${value.count}`" 
+                :href="`/pages/categories/${key}`" 
                 class="type-item"
             >
                 {{ key }}

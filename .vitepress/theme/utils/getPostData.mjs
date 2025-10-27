@@ -63,25 +63,25 @@ const comparePostPriority = (a, b) => {
 const compareDate = (obj1, obj2) => obj1.date < obj2.date ? 1 : -1;
 
 export const getAllCategories = (postData) => {
-  const categories = {};
+  let categories = {};
   postData.map((item) => {
     if (!item.categories || item.categories.length === 0) return;
-    item.categories.forEach(tag => {
-      if (!categories[tag]) {
-        categories[tag] = {
+    item.categories.forEach(type => {
+      if (!categories[type]) {
+        categories[type] = {
           count: 1,
           articles: [item],
         };
       } else {
-        categories[tag].count++;
-        categories[tag].articles.push(item);
+        categories[type].count++;
+        categories[type].articles.push(item);
       }
     });
   })
   return categories;
 }
 export const getAllTags = (postData) => {
-  const tags = {};
+  let tags = {};
   postData.map((item) => {
     if (!item.tags || item.tags.length === 0) return;
     item.tags.forEach(tag => {

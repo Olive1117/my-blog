@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
   // VitePress 項目需要配置 @vitejs/plugin-vue

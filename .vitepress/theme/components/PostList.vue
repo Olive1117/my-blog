@@ -3,7 +3,7 @@
     <div class="post-list">
 
         <div 
-            v-for="(item, key, index) in theme.postData"
+            v-for="(item, key, index) in listData"
             :key="index"
             class="post-item"
         >
@@ -22,7 +22,7 @@
                         <i>#</i>
                         {{ value }}
                     </span>
-                    <span class="post-date">{{ formatDate(item.date, YYYY-MM-DD) }}</span>
+                    <span class="post-date">{{ formatDate(item.date, "YYYY-MM-DD") }}</span>
                 </div>
             </div>
         </div>
@@ -31,28 +31,35 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const source = ref({
-    "0001": {
-        title: "Hello VitePress",
-        date: "2022-01-01",
-        author: "admin",
-        excerpt: "这是我的第一篇文章",
-        type: "article",
-        tags: ["VitePress", "Vue"]
-    },
-    "0002": {
-        title: "VitePress,为了足够长,测试一下能否换行喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵",
-        date: "2022-01-01",
-        author: "admin",
-        excerpt: "这是我的第二篇文章,为了足够长,测试一下能否换行喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵",
-        type: "article",
-        tags: ["VitePress", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue"]
-    }
-});
+// import { ref } from 'vue';
+// const source = ref({
+//     "0001": {
+//         title: "Hello VitePress",
+//         date: "2022-01-01",
+//         author: "admin",
+//         excerpt: "这是我的第一篇文章",
+//         type: "article",
+//         tags: ["VitePress", "Vue"]
+//     },
+//     "0002": {
+//         title: "VitePress,为了足够长,测试一下能否换行喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵",
+//         date: "2022-01-01",
+//         author: "admin",
+//         excerpt: "这是我的第二篇文章,为了足够长,测试一下能否换行喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵",
+//         type: "article",
+//         tags: ["VitePress", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue"]
+//     }
+// });
 import { useData } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
 const { theme } = useData();
+const props = defineProps({
+    listData: {
+        type: [Array, String],
+        default: () => [],
+    },
+});
+console.log("props.listData:::", props.listData);
 </script>
 
 <style lang="scss" scoped>
