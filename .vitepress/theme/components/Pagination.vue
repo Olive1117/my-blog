@@ -4,8 +4,8 @@
         <div 
             v-for="(value, index) in pageList"
             :key="index"
+            @click="jumpPage(value)"
             :class="['page-item', {active: index === currentPage}]"
-            @click="jumpPage(index)"
             class="page-item"
         >
             <span>{{ value }}</span>
@@ -35,19 +35,35 @@ const props = defineProps({
     }
 })
 const router = useRouter();
+const emit = defineEmits(['update-page']);
 const jumpPage = (index) => {
-    if (index === 1) router.push(props.basePath);
-    else router.push(`${props.basePath}?page=${index}`);
+    // emit('update-page');
+    if (index === 1) router.go(props.basePath);
+    else router.go(`${props.basePath}?page=${index}`);
+    router.onBeforePageLoad = (to) => {
+        emit('update-page');
+        return false;
+    };
+    // console.log("jumpPage", index);
 };
 const pageList = computed(() => {
     const totalPage = Math.ceil(props.total / props.pageSize);
     const pageList = [];
+    // console.log("totalPage", totalPage)
     for (let i = 1; i <= totalPage; i++) {
         pageList.push(i);
     }
     return pageList;
 });
-console.log("分页总数", props.total);
+// const jumpPage = (index) => {
+//     console.log(" window.location.search:::",  window.location.search);
+//     if (index === 1) return props.basePath;
+//     else return `${props.basePath}?page=${index}`;
+// };
+// const clickpage = () => {
+//     console.log(" window.location.search:::",  new URLSearchParams(window.location.search).get('page'));
+// };
+// const jumpPage = (index) => {};
 </script>
 
 <style lang="scss" scoped>

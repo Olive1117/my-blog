@@ -29,7 +29,7 @@ const { theme } = useData();
 
 const isPostPage = computed(() => {
   const routePath = decodeURIComponent(route.path);
-  console.log(routePath)
+  // console.log(routePath)
   return routePath.includes('/posts/');
 });
 </script>

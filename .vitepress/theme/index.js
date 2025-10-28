@@ -19,7 +19,9 @@ import "./style/main.scss";
 const Theme = {
   Layout: () => h(App),
   enhanceApp({ app, router, siteData }) {
-    app.use(ElementPlus)
+    app.use(ElementPlus);
+    // router.onAfterRouteChange((to) => {
+    // });
   }
 };
 
