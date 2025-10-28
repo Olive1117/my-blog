@@ -17,7 +17,6 @@
 <script setup>
 import { useData, useRoute } from 'vitepress';
 import { computed, ref, watch } from 'vue';
-import { useUrlSearchParams } from '@vueuse/core';
 import Banner from '../components/Banner.vue'
 import Pagination from '../components/Pagination.vue';
 import PostList from '../components/PostList.vue';
@@ -39,63 +38,67 @@ const props = defineProps({
 });
 const { theme } = useData();
 const route = useRoute();
-const refreshKey = ref(0);
 const basePath = route.path;
-// const query = useUrlSearchParams('history')
+
+// refreshKey 是一个手动触发刷新的响应式引用
+// 用于强制依赖非响应式的 window.location.search 的 computed 属性重新计算
+const refreshKey = ref(0);
 const handleUpdatePage = () => {
     refreshKey.value++;
-    console.log("当前页数：", getCurrentPage.value);
-    // console.log("query参数", query['page'] ? Number(query['page']) : 1);
-    console.log("子组件事件传递");
+    // 自动滚动到页面顶部
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 可选，使滚动更平滑
+    });
 };
-console.log("页面刷新")
-// const params = useUrlSearchParams('history');
-// console.log("shouCategory:", props.showCategory);
-// console.log("route！！！！！！！", route);
-// console.log("params！！！！！！！", site.value)
-const pageSize = 3;
+
+const pageSize = 3; // 每页显示的文章数量
+/**
+ * 过滤文章数据 (根据分类或标签)  
+ * computed 属性：当 theme.value 变化或 props 变化时自动重新计算
+ */
 const postData = computed(() => {
     if (props.showCategory || props.showTag) {
-         // 分类或标签页面
+        // 分类或标签页面：从主题配置数据中获取对应的文章列表
         return props.showCategory ? theme.value.categoriesData[props.showCategory].articles : theme.value.tagsData[props.showTag].articles;
     } else {
+        // 首页：获取所有文章数据
         return theme.value.postData;
     }
 });
 
+/**
+ * 获取当前页码  
+ * computed 属性：从浏览器 URL 的 Query 中解析 page 参数
+ */
 const getCurrentPage = computed(() => {
-    let params = refreshKey.value;
-    params = new URLSearchParams(window.location.search);
+    // 关键行：读取 refreshKey 的值，建立响应式依赖
+    // 当 refreshKey 变化时，这个 computed 就会重新执行
+    refreshKey.value;
+    // 从非响应式的 window.location.search 中获取页码
+    const params = new URLSearchParams(window.location.search);
     const page = params.get('page') ? Number(params.get('page')) : 1;
     return page;
 });
 
+/**
+ * 获取当前页的文章列表数据  
+ * computed 属性：依赖于当前页码 (getCurrentPage) 和过滤后的文章数据 (postData)
+ */
 const listData = computed(() => {
     const page = getCurrentPage.value;
-    // console.log("当前页数：", page);
-    // console.log("route.query:", route)
     let data = postData.value;
-    // console.log("文章数据：", data);
+    // 根据页码和页大小进行切片 (分页逻辑)
     return data ? data.slice((page - 1) * pageSize, page * pageSize) : [];
 });
 
+/**
+ * 获取总文章数  
+ * computed 属性：依赖于过滤后的文章数据 (postData)
+ */
 const total = computed(() => {
     return postData.value.length;
 });
-// const { params } = useData();
-// console.log("params:", params.value);
-// watch(
-//   params,
-//   (newPage) => {
-//     console.log("读取到刷新！！");
-//   },
-// );
-watch(refreshKey, () => {
-    console.log("watch刷新！！")
-    getCurrentPage.value;
-    // console.log(new URLSearchParams(window.location.search).get('page'));
-    // console.log("当前页数：", getCurrentPage.value);
-    })
 </script>
 
 <style lang="scss" scoped>
