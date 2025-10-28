@@ -37,13 +37,11 @@ const props = defineProps({
 const router = useRouter();
 const emit = defineEmits(['update-page']);
 const jumpPage = (index) => {
-    // emit('update-page');
-    if (index === 1) router.go(props.basePath);
-    else router.go(`${props.basePath}?page=${index}`);
-    router.onBeforePageLoad = (to) => {
-        emit('update-page');
-        return false;
-    };
+    // if (index === 1) router.go(props.basePath);
+    // else router.go(`${props.basePath}?page=${index}`);
+    const newPath = index === 1 ? props.basePath : `${props.basePath}?page=${index}`;
+    window.history.pushState({}, '', newPath);
+    emit('update-page');
     // console.log("jumpPage", index);
 };
 const pageList = computed(() => {
