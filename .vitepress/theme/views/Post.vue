@@ -1,11 +1,8 @@
 <template>
-    <h1>{{ theme.postData }}</h1>
-    <h2>{{ theme.categoriesData }}</h2>
     <h2>this`s PAGE!!!</h2>
-    <Content />
-    <h1>{{ date }}</h1>
-    <h1>{{  }}</h1>
-    
+    <div class="markdown-main">
+        <Content class="markdown-main-style" />
+    </div>
 </template>
 
 <script setup>
@@ -23,3 +20,9 @@ const date = theme.value.postData.map((item) => {
 console.log(route)
 
 </script>
+
+<style lang="scss" scoped>
+// @use "../style/markdown.scss";
+@use "../style/post.scss"
+
+</style>

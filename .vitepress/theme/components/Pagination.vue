@@ -5,8 +5,7 @@
             v-for="(value, index) in pageList"
             :key="index"
             @click="jumpPage(value)"
-            :class="['page-item', {active: index === currentPage}]"
-            class="page-item"
+            :class="['page-item', {active: index + 1 === currentPage}]"
         >
             <span>{{ value }}</span>
         </div>
@@ -16,10 +15,6 @@
 <script setup>
 import { ref, computed, defineProps } from 'vue'
 const props = defineProps({
-    currentPage: {
-        type: Number,
-        default: 1
-    },
     total: {
         type: Number,
         default: 1
@@ -31,12 +26,15 @@ const props = defineProps({
     basePath: {
         type: String,
         default: '/'
-    }
+    },
 })
+let currentPage = ref(new URLSearchParams(window.location.search).get('page') || 1);
 const emit = defineEmits(['update-page']);
 const jumpPage = (index) => {
+    currentPage.value = index;
     const newPath = index === 1 ? props.basePath : `${props.basePath}?page=${index}`;
     window.history.pushState({}, '', newPath);
+console.log(currentPage.value)
     emit('update-page');
 };
 const pageList = computed(() => {
@@ -47,8 +45,10 @@ const pageList = computed(() => {
     }
     return pageList;
 });
-
 </script>
 
 <style lang="scss" scoped>
+.active {
+    background-color: crimson;
+}
 </style>

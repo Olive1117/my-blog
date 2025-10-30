@@ -6,9 +6,15 @@
             <a href="/">首页</a>
             <a href="/posts/markdown-examples.html">Markdown Examples</a>
             <a href="/posts/api-examples.html">API Examples</a>
+            <a href="/posts/年度盛典你.html">测试</a>
         </nav>
     </header>
 </template>
+
+<script setup>
+import { useData } from 'vitepress'
+const { theme } = useData();
+</script>
 
 <style scoped>
 .main-header {

@@ -39,7 +39,7 @@ const props = defineProps({
 const { theme } = useData();
 const route = useRoute();
 const basePath = route.path;
-
+console.log(theme.value)
 // refreshKey 是一个手动触发刷新的响应式引用
 // 用于强制依赖非响应式的 window.location.search 的 computed 属性重新计算
 const refreshKey = ref(0);

@@ -1,4 +1,6 @@
 @use "./scrollbar.scss";
+@use "./markdown.scss";
+
 
 /* 全局颜色变量 */
 :root {
@@ -43,3 +45,4 @@ a {
     color: var(--main-color);
   }
 }
+

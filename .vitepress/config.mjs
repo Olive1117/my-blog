@@ -1,25 +1,40 @@
 import { defineConfig } from 'vitepress'
-import { 
+import {
   getAllPosts,
   getAllCategories,
   getAllTags
 } from './theme/utils/getPostData.mjs'
+import { getThemeConfig } from "./init.mjs";
 const posts = await getAllPosts()
-// console.log("正在执行注入~~~~~~~~~~~~~~~~~~~~~", posts)
+const themeConfig = await getThemeConfig()
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Awesome Project",
-  description: "A VitePress Site",
+  title: themeConfig.siteMeta.title,
+  description: themeConfig.siteMeta.description,
+  lang: themeConfig.siteMeta.lang,
+  // 简洁的 URL
+  cleanUrls: true,
+  // 最后更新时间戳
+  lastUpdated: true,
+  // 主题
+  appearance: "dark",
+  // Head
+  head: themeConfig.inject.header,
   themeConfig: {
+    ...themeConfig,
+    // logo: themeConfig.siteMeta.logo,
     postData: posts,
     tagsData: getAllTags(posts),
     categoriesData: getAllCategories(posts),
-    nav: [
-      { text: "Home", link: "/" },
-      { text: "Guide", link: "/guide/" },
-      { text: "About", link: "/about/" }
-    ]
   },
-  cleanUrls: true,
+  vite: {
+    publicDir: 'public',
+  },
+  markdown: {
+    config: ((md) => {
+
+    }),
+    lineNumbers: false,
+  },
 })
