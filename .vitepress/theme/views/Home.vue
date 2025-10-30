@@ -1,5 +1,6 @@
 <template>
     <Banner />
+    <!-- <h2>{{ theme.postData }}</h2> -->
     <!-- <h1>HALLO!!! this home!</h1> -->
     <h1 v-if="showCategory">this is category {{ showCategory }}</h1>
     <div class="home-content">

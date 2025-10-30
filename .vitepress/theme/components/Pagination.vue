@@ -28,7 +28,8 @@ const props = defineProps({
         default: '/'
     },
 })
-let currentPage = ref(new URLSearchParams(window.location.search).get('page') || 1);
+let currentPage = ref(Number(new URLSearchParams(window.location.search).get('page')) || 1);
+console.log(currentPage.value);
 const emit = defineEmits(['update-page']);
 const jumpPage = (index) => {
     currentPage.value = index;

@@ -5,6 +5,7 @@
         <div 
             v-for="(item, key, index) in listData"
             :key="index"
+            @click="router.go(item.regularPath)"
             class="post-item"
         >
             <div v-if="item?.img" class="post-img">图片</div>
@@ -50,9 +51,10 @@
 //         tags: ["VitePress", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue"]
 //     }
 // });
-import { useData } from 'vitepress';
+import { useData, useRouter } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
 const { theme } = useData();
+const router = useRouter();
 const props = defineProps({
     listData: {
         type: [Array, String],

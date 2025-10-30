@@ -25,7 +25,8 @@ export const getAllPosts = async () => {
         top: top || false,
         cover: cover || "",
         img: img || "",
-        filePath: path,
+        path,
+        regularPath: `${path.replace(".md", ".html")}`,
       };
     }));
     // posts.map(post => {

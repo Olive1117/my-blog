@@ -13,7 +13,7 @@ export const themeConfig = {
         lang: "zh-CN",
         // 作者
         author: {
-            name: "Admin",
+            name: "Olive",
             cover: "/images/20250513224114.jpg",
             email: "114514@gmail.com",
             link: "",
@@ -114,11 +114,7 @@ export const themeConfig = {
     },
     {
         text: "归档",
-        items: [
-            { text: "首页", link: "/", icon: "home" },
-            { text: "归档", link: "/pages/archives", icon: "archive" },
-            { text: "关于", link: "/pages/about", icon: "info" },
-        ],
+        items: [],
     },
     {
         text: "链接",
