@@ -1,15 +1,15 @@
 <template>
   <Background />
-  <Nav />
-  <!-- <Mybutton>按钮</Mybutton> -->
-  <NotFound v-if="page.isNotFound" />
-  <Home v-else-if="frontmatter.layout === 'home'"/>
-  <template v-else>
-    <Post v-if="isPostPage" />
-    <Page v-else-if="!page.isNotFound" />
-  </template>
-  
-  
+  <div class="main">
+    <Nav />
+    <!-- <Mybutton>按钮</Mybutton> -->
+    <NotFound v-if="page.isNotFound" />
+    <Home v-else-if="frontmatter.layout === 'home'" show-header/>
+    <template v-else>
+      <Post v-if="isPostPage" />
+      <Page v-else-if="!page.isNotFound" />
+    </template>
+  </div>
 </template>
 
 <script setup>
@@ -35,5 +35,7 @@ const isPostPage = computed(() => {
 </script>
 
 <style scoped lang="scss">
-
+.main {
+  padding: 0 100px;
+}
 </style>

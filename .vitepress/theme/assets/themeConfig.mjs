@@ -32,77 +32,11 @@ export const themeConfig = {
         header: [
             // favicon
             ["link", { rel: "icon", href: "/favicon.ico" }],
-            // RSS
             [
-                "link",
+                "script",
                 {
-                    rel: "alternate",
-                    type: "application/rss+xml",
-                    title: "RSS",
-                    href: "https://blog.imsyy.top/rss.xml",
-                },
-            ],
-            // 预载 CDN
-            [
-                "link",
-                {
-                    crossorigin: "",
-                    rel: "preconnect",
-                    href: "https://s1.hdslb.com",
-                },
-            ],
-            [
-                "link",
-                {
-                    crossorigin: "",
-                    rel: "preconnect",
-                    href: "https://mirrors.sustech.edu.cn",
-                },
-            ],
-            // HarmonyOS font
-            [
-                "link",
-                {
+                    src: "https://kit.fontawesome.com/23436449fa.js",
                     crossorigin: "anonymous",
-                    rel: "stylesheet",
-                    href: "https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css",
-                },
-            ],
-            [
-                "link",
-                {
-                    crossorigin: "anonymous",
-                    rel: "stylesheet",
-                    href: "https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.css",
-                },
-            ],
-            // iconfont
-            [
-                "link",
-                {
-                    crossorigin: "anonymous",
-                    rel: "stylesheet",
-                    href: "https://cdn2.codesign.qq.com/icons/g5ZpEgx3z4VO6j2/latest/iconfont.css",
-                },
-            ],
-            // Embed code
-            ["link", { rel: "preconnect", href: "https://use.sevencdn.com" }],
-            ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
-            [
-                "link",
-                {
-                    crossorigin: "anonymous",
-                    href: "https://use.sevencdn.com/css2?family=Fira+Code:wght@300..700&display=swap",
-                    rel: "stylesheet",
-                },
-            ],
-            // 预载 DocSearch
-            [
-                "link",
-                {
-                    href: "https://X5EBEZB53I-dsn.algolia.net",
-                    rel: "preconnect",
-                    crossorigin: "",
                 },
             ],
         ],
@@ -110,117 +44,54 @@ export const themeConfig = {
     // 导航栏菜单
     nav: [{
         text: "主页",
-        items: [],
+        icon: "Home",
+        items: [
+            { text: "首页", link: "/", icon: "" },
+        ],
     },
     {
         text: "归档",
-        items: [],
+        icon: "Folders",
+        items: [
+            { text: "年份", link: "/pages/archives", icon: "" },
+        ],
     },
     {
         text: "链接",
+        icon: "Link",
         items: [
-            { text: "github", link: "/", icon: "home" },
-            { text: "gitee", link: "/pages/archives", icon: "archive" },
-            { text: "bilibili", link: "/pages/about", icon: "info" },
-            { text: "twitter", link: "/pages/about", icon: "info" },
+            { text: "github", link: "https://github.com/Olive1117", icon: "BrandGithub" },
+            { text: "gitee", link: "https://gitee.com/Olive1117", icon: "" },
+            { text: "bilibili", link: "https://space.bilibili.com/507776036?spm_id_from=333.1007.0.0", icon: "" },
+            { text: "twitter", link: "https://x.com/Olive718390", icon: "BrandTwitter" },
         ],
     },
     {
         text: "我的",
+        icon: "User",
         items: [
-            { text: "动漫&文章", link: "/", icon: "home" },
-            { text: "日记", link: "/pages/archives", icon: "archive" },
-            { text: "图库", link: "/pages/about", icon: "info" },
+            { text: "动漫&文章", link: "/", icon: "" },
+            { text: "日记", link: "/pages/archives", icon: "" },
+            { text: "图库", link: "/pages/about", icon: "" },
         ],
     },
     {
         text: "关于",
+        icon: "InfoCircle",
         items: [
-            { text: "我自己", link: "/", icon: "home" },
-            { text: "友链", link: "/pages/archives", icon: "archive" },
+            { text: "我自己", link: "/", icon: "" },
+            { text: "友链", link: "/pages/archives", icon: "" },
         ],
     },
     {
         text: "其他",
+        icon: "Dots",
         items: [
-            { text: "项目", link: "/", icon: "home" },
-            { text: "技能", link: "/pages/archives", icon: "archive" },
-            { text: "时间线", link: "/pages/about", icon: "info" },
+            { text: "项目", link: "/", icon: "" },
+            { text: "技能", link: "/pages/archives", icon: "" },
+            { text: "时间线", link: "/pages/about", icon: "" },
         ],
     }],
-    // 导航栏菜单 - 左侧
-    navMore: [
-        {
-            name: "博客",
-            list: [
-                {
-                    icon: "/images/logo/logo.webp",
-                    name: "主站",
-                    url: "/",
-                },
-                {
-                    icon: "/images/logo/logo.webp",
-                    name: "博客镜像站",
-                    url: "https://blog-backup.imsyy.top/",
-                },
-            ],
-        },
-        {
-            name: "服务",
-            list: [
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/08/6613465358077.png",
-                    name: "起始页",
-                    url: "https://nav.imsyy.top/",
-                },
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/08/661346d418ad7.png",
-                    name: "今日热榜",
-                    url: "https://hot.imsyy.top/",
-                },
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/08/66134722586fa.png",
-                    name: "站点监测",
-                    url: "https://status.imsyy.top/",
-                },
-            ],
-        },
-        {
-            name: "项目",
-            list: [
-                {
-                    icon: "/images/logo/logo.webp",
-                    name: "Curve",
-                    url: "https://github.com/imsyy/vitepress-theme-curve",
-                },
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/07/66124f5fc63c8.png",
-                    name: "SPlayer",
-                    url: "https://github.com/imsyy/SPlayer",
-                },
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/08/6613465358077.png",
-                    name: "Snavigation",
-                    url: "https://github.com/imsyy/SPlayer",
-                },
-                {
-                    icon: "/images/logo/logo.webp",
-                    name: "Home",
-                    url: "https://github.com/imsyy/home",
-                },
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/08/661346d418ad7.png",
-                    name: "DailyHotApi",
-                    url: "https://github.com/imsyy/DailyHotApi",
-                },
-                {
-                    icon: "https://pic.efefee.cn/uploads/2024/04/08/66134722586fa.png",
-                    name: "site-status",
-                    url: "https://github.com/imsyy/site-status",
-                },
-            ],
-        },
-    ],
     // 封面配置
     cover: {
         // 是否开启双栏布局

@@ -5,6 +5,8 @@
     "preview": "vitepress preview"
   },
   "devDependencies": {
+    "@vicons/tabler": "^0.13.0",
+    "@vicons/utils": "^0.1.4",
     "sass": "^1.93.2",
     "vitepress": "^1.6.4",
     "vue": "^3.5.21"

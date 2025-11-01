@@ -1,11 +1,38 @@
 @use "./scrollbar.scss";
-@use "./markdown.scss";
+@use "./animation.scss";
 
 
 /* 全局颜色变量 */
 :root {
-  --main-font-color: #333;
-  --main-color: #fd0000;
+  // --main-color: #fd0000;
+  // --mian-color-text-base: #333;
+  // --main-color-text-secondary: rgba(227, 118, 155, 1);
+  // --main-color-card-background:  rgba(255, 255, 255, 0.9);
+  // --main-color-card-border: rgba(255, 255, 255, 1);
+  // --main-color-card-second-background: rgba(254, 232, 238, 1);
+
+  --color-primary: rgba(227, 118, 155, 1);
+  --color-primary-light: rgba(254, 232, 238, 1);
+  --color-text-base: #333;
+  --color-text-secondary: #7f8c8d;
+  --color-card-background: rgba(255, 255, 255, 0.9);
+  --color-card-border: rgba(255, 255, 255, 1);
+
+  // xs, sm, md, lg, xl
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Extra Small (超小)：最小间隔，常用于图标与文字之间、元素内部极小间隙。*/
+  /* Small (小)：小间隔，常用于菜单项/列表项的内边距、紧密相关的元素间距。*/
+  /* Medium (中等)：标准/基准间隔，最常用的默认间距，适用于按钮、卡片内边距等。*/
+  /* Large (大)：大间隔，常用于主要区块之间的间距、大标题的底部间距。*/
+  /* Extra Large (超大)：区块间距，用于分隔不同内容模块，提供足够的呼吸空间。*/
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
   --main-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
     Cantarell, "Helvetica Neue", sans-serif;
 }
@@ -16,12 +43,15 @@ html {
   &.hmos {
     --main-font-family: "HarmonyOS_Regular", sans-serif;
   }
+
   &.lxgw {
     --main-font-family: "LXGW WenKai Screen", sans-serif;
   }
+
   .iconfont {
     font-size: 1rem;
   }
+
   button {
     font-family: var(--main-font-family);
   }
@@ -38,11 +68,12 @@ a {
   text-decoration: none;
   color: var(--main-font-color);
   transition: all 0.3s;
+
   .iconfont {
     transition: all 0.3s;
   }
+
   &:hover {
     color: var(--main-color);
   }
 }
-

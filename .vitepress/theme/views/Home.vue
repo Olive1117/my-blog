@@ -1,5 +1,5 @@
 <template>
-    <Banner />
+    <Banner v-if="showHeader"/>
     <!-- <h2>{{ theme.postData }}</h2> -->
     <!-- <h1>HALLO!!! this home!</h1> -->
     <h1 v-if="showCategory">this is category {{ showCategory }}</h1>
@@ -24,6 +24,10 @@ import PostList from '../components/PostList.vue';
 import TypeBar from '../components/TypeBar.vue'; 
 
 const props = defineProps({
+    showHeader: {
+        type: Boolean,
+        default: false,
+    },
     showCategory: {
         type: [null, String],
         default: null,
