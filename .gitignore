@@ -1,8 +1,3 @@
 ECHO ���ڴ�״̬��
 node_modules
-.vitepress/cache/deps/
-.vitepress/cache/deps/_metadata.json
-.vitepress/cache/deps/vitepress___@vue_devtools-api.js
-.vitepress/cache/deps/vitepress___@vueuse_core.js
-.vitepress/cache/deps/vitepress___@vueuse_core.js.map
-.vitepress/cache/deps/vue.js
+.vitepress/cache/
