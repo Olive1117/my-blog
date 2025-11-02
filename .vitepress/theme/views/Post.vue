@@ -23,6 +23,12 @@ console.log(route)
 
 <style lang="scss" scoped>
 // @use "../style/markdown.scss";
-@use "../style/post.scss"
+@use "../style/post.scss";
+.markdown-main {
+    padding: 30px;
+    background-color: var(--color-card-background);
+    border: 3px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+}
 
 </style>

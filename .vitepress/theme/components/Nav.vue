@@ -2,29 +2,30 @@
     <header class="main-header">
         <div :class="['main-nav', { scrolled: isScrolled }]">
             <div class="nav-left">
-                <a href="/" class="logo">{{ site.title }}</a>
+                <a href="/" @click.prevent="emitter.emit('page-content-updated', { time: Date.now() })" class="logo">{{ site.title }}</a>
             </div>
             <div class="nav-center">
-                <div v-for="(value, index) in theme.nav" :key="index"
-                    @click="isSingleLink(value.items) ? goto(value.items[0].link) : null" class="menu-item">
-                    <dynamicicon v-if="value.icon" :icon="value.icon" :tag="'span'" />
+                <a v-for="(value, index) in theme.nav" :key="index"
+                    :href="isSingleLink(value.items) ? value.items[0].link : null"
+                    @click.prevent="isSingleLink(value.items) ? goto(value.items[0].link) : null" class="menu-item">
+                    <Dynamicicon v-if="value.icon" :icon="value.icon" :tag="'span'" />
                     <span class="link-btn">
                         {{ value.text }}
                     </span>
-                    <dynamicicon v-if="!isSingleLink(value.items)" :icon="'ChevronDown'" :tag="'span'"
+                    <Dynamicicon v-if="!isSingleLink(value.items)" :icon="'ChevronDown'" :tag="'span'"
                         class="ChevronDown" />
                     <div v-if="!isSingleLink(value.items)" class="link-child">
-                        <div v-for="(child, childIndex) in value.items" :key="childIndex"
-                            @click="goto(value.items[childIndex].link)" class="link-child-item">
+                        <a v-for="(child, childIndex) in value.items" :key="childIndex"
+                            :href="child.link"
+                            @click.prevent="goto(value.items[childIndex].link)" class="link-child-item">
                             <span class="link-child-btn">
-                                <dynamicicon v-if="child.icon" :icon="child.icon" :tag="'span'" />
+                                <Dynamicicon v-if="child.icon" :icon="child.icon" :tag="'span'" />
                                 {{ child.text }}
                             </span>
-                            <dynamicicon v-if="isExternalLink(child.link)" :icon="'ExternalLink'" />
-                        </div>
-
+                            <Dynamicicon v-if="isExternalLink(child.link)" :icon="'ExternalLink'" />
+                        </a>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="nav-right">
                 <span>搜索</span>
@@ -38,12 +39,11 @@
 
 <script setup>
 import { useData, useRouter } from 'vitepress'
-import { ref, onMounted, onUnmounted } from 'vue';
-import Dynamicicon from './Dynamicicon.vue';
+import { ref, onMounted, onUnmounted, inject } from 'vue';
 const { site, theme } = useData();
 console.log("site", site, "theme", theme);
 const router = useRouter();
-
+const emitter = inject('eventBus');
 const isScrolled = ref(false);
 const scrollThreshold = 10;
 

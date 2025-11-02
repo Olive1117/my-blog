@@ -2,7 +2,7 @@
     <Banner v-if="showHeader"/>
     <!-- <h2>{{ theme.postData }}</h2> -->
     <!-- <h1>HALLO!!! this home!</h1> -->
-    <h1 v-if="showCategory">this is category {{ showCategory }}</h1>
+    <!-- <h1 v-if="showCategory">this is category {{ showCategory }}</h1> -->
     <div class="home-content">
         <TypeBar />
         <PostList :list-data="listData" />
@@ -10,14 +10,13 @@
             :total="total" 
             :page-size="pageSize" 
             :base-path="basePath"
-            @update-page="handleUpdatePage"
         />
     </div>
 </template>
 
 <script setup>
 import { useData, useRoute } from 'vitepress';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, inject, onMounted, onUnmounted } from 'vue';
 import Banner from '../components/Banner.vue'
 import Pagination from '../components/Pagination.vue';
 import PostList from '../components/PostList.vue';
@@ -45,19 +44,23 @@ const { theme } = useData();
 const route = useRoute();
 const basePath = route.path;
 console.log(theme.value)
+const pageSize = 3; // 每页显示的文章数量
 // refreshKey 是一个手动触发刷新的响应式引用
 // 用于强制依赖非响应式的 window.location.search 的 computed 属性重新计算
+const emitter = inject('eventBus');
 const refreshKey = ref(0);
 const handleUpdatePage = () => {
-    refreshKey.value++;
     // 自动滚动到页面顶部
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // 可选，使滚动更平滑
-    });
+    event.preventDefault();
+    setTimeout(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 关键：平滑滚动
+        });
+    }, 50);
+    refreshKey.value++;
 };
 
-const pageSize = 3; // 每页显示的文章数量
 /**
  * 过滤文章数据 (根据分类或标签)  
  * computed 属性：当 theme.value 变化或 props 变化时自动重新计算
@@ -104,11 +107,18 @@ const listData = computed(() => {
 const total = computed(() => {
     return postData.value.length;
 });
+
+onMounted(() => {
+  emitter.on('page-content-updated', handleUpdatePage);
+});
+onUnmounted(() => {
+  emitter.off('page-content-updated', handleUpdatePage);
+});
 </script>
 
 <style lang="scss" scoped>
 .home-content {
-    background-color: rgb(255, 184, 158);
+    // background-color: rgb(255, 184, 158);
     // padding: 40px;
 }
 </style>

@@ -1,19 +1,14 @@
 <template>
-    <h1>分页栏</h1>
-    <div class="page-number">
-        <div 
-            v-for="(value, index) in pageList"
-            :key="index"
-            @click="jumpPage(value)"
-            :class="['page-item', {active: index + 1 === currentPage}]"
-        >
-            <span>{{ value }}</span>
+    <div class="pagination">
+        <div v-for="(value, index) in pageList" :key="index" @click="jumpPage(value)"
+            :class="['page-item', { active: index + 1 === currentPage }]">
+            <span>{{ value.pageNumber }}</span>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, inject, onMounted, onUnmounted } from 'vue'
 const props = defineProps({
     total: {
         type: Number,
@@ -28,28 +23,71 @@ const props = defineProps({
         default: '/'
     },
 })
-let currentPage = ref(Number(new URLSearchParams(window.location.search).get('page')) || 1);
+const currentPage = ref(0);
+const emitter = inject('eventBus');
 console.log(currentPage.value);
-const emit = defineEmits(['update-page']);
-const jumpPage = (index) => {
-    currentPage.value = index;
-    const newPath = index === 1 ? props.basePath : `${props.basePath}?page=${index}`;
-    window.history.pushState({}, '', newPath);
-console.log(currentPage.value)
-    emit('update-page');
+
+const update = () => { currentPage.value = Number(new URLSearchParams(window.location.search).get('page')) || 1 };
+const jumpPage = (pageItem) => {
+    currentPage.value = pageItem.pageNumber;
+    window.history.pushState({}, '', pageItem.regularPath);
+    emitter.emit('page-content-updated', { time: Date.now() });
 };
+
 const pageList = computed(() => {
     const totalPage = Math.ceil(props.total / props.pageSize);
-    const pageList = [];
+    const list = [];
     for (let i = 1; i <= totalPage; i++) {
-        pageList.push(i);
+        const path = i === 1 ? props.basePath : `${props.basePath}?page=${i}`;
+        list.push({
+            pageNumber: i,
+            regularPath: path,
+        });
     }
-    return pageList;
+    return list;
+});
+
+onMounted(() => {
+    update();
+    emitter.on('page-content-updated', update);
+});
+onUnmounted(() => {
+    emitter.off('page-content-updated', update);
 });
 </script>
 
 <style lang="scss" scoped>
-.active {
-    background-color: crimson;
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    padding: var(--spacing-xl) 0;
+
+    .page-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: var(--radius-lg);
+        background-color: var(--color-card-background);
+        border: 3px solid var(--color-card-border);
+        color: var(--color-text-base);
+        transition: all 0.3s ease;
+
+        &.active {
+            color: var(--color-primary);
+            background-color: var(--color-primary-light);
+            border-color: rgba(255, 255, 255, 0);
+        }
+
+        &:hover {
+            border-color: var(--color-primary);
+        }
+    }
 }
 </style>

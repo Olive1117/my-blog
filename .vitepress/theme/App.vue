@@ -22,6 +22,7 @@ import Mybutton from './components/Mybutton.vue';
 import Background from './components/Background.vue';
 import NotFound from './views/NotFound.vue';
 import Page from './views/Page.vue';
+import Dynamicicon from './components/Dynamicicon.vue';
 // https://vitepress.dev/reference/runtime-api#usedata
 const { page, frontmatter } = useData();
 const route = useRoute();
@@ -37,5 +38,7 @@ const isPostPage = computed(() => {
 <style scoped lang="scss">
 .main {
   padding: 0 100px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 </style>

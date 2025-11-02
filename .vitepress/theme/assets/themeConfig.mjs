@@ -39,59 +39,114 @@ export const themeConfig = {
                     crossorigin: "anonymous",
                 },
             ],
+            // iconfont
+            [
+                "link",
+                {
+                    crossorigin: "anonymous",
+                    rel: "stylesheet",
+                    href: "https://cdn2.codesign.qq.com/icons/g5ZpEgx3z4VO6j2/latest/iconfont.css",
+                },
+            ],
+            // 预载 CDN
+            [
+                "link",
+                {
+                    crossorigin: "",
+                    rel: "preconnect",
+                    href: "https://s1.hdslb.com",
+                },
+            ],
+            [
+                "link",
+                {
+                    crossorigin: "",
+                    rel: "preconnect",
+                    href: "https://mirrors.sustech.edu.cn",
+                },
+            ],
+            // HarmonyOS font
+            [
+                "link",
+                {
+                    crossorigin: "anonymous",
+                    rel: "stylesheet",
+                    href: "https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css",
+                },
+            ],
+            [
+                "link",
+                {
+                    crossorigin: "anonymous",
+                    rel: "stylesheet",
+                    href: "https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.css",
+                },
+            ],
+            // Embed code
+            ["link", { rel: "preconnect", href: "https://use.sevencdn.com" }],
+            ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
+            [
+                "link",
+                {
+                    crossorigin: "anonymous",
+                    href: "https://use.sevencdn.com/css2?family=Fira+Code:wght@300..700&display=swap",
+                    rel: "stylesheet",
+                },
+            ],
         ],
     },
     // 导航栏菜单
-    nav: [{
-        text: "主页",
-        icon: "Home",
-        items: [
-            { text: "首页", link: "/", icon: "" },
-        ],
-    },
-    {
-        text: "归档",
-        icon: "Folders",
-        items: [
-            { text: "年份", link: "/pages/archives", icon: "" },
-        ],
-    },
-    {
-        text: "链接",
-        icon: "Link",
-        items: [
-            { text: "github", link: "https://github.com/Olive1117", icon: "BrandGithub" },
-            { text: "gitee", link: "https://gitee.com/Olive1117", icon: "" },
-            { text: "bilibili", link: "https://space.bilibili.com/507776036?spm_id_from=333.1007.0.0", icon: "" },
-            { text: "twitter", link: "https://x.com/Olive718390", icon: "BrandTwitter" },
-        ],
-    },
-    {
-        text: "我的",
-        icon: "User",
-        items: [
-            { text: "动漫&文章", link: "/", icon: "" },
-            { text: "日记", link: "/pages/archives", icon: "" },
-            { text: "图库", link: "/pages/about", icon: "" },
-        ],
-    },
-    {
-        text: "关于",
-        icon: "InfoCircle",
-        items: [
-            { text: "我自己", link: "/", icon: "" },
-            { text: "友链", link: "/pages/archives", icon: "" },
-        ],
-    },
-    {
-        text: "其他",
-        icon: "Dots",
-        items: [
-            { text: "项目", link: "/", icon: "" },
-            { text: "技能", link: "/pages/archives", icon: "" },
-            { text: "时间线", link: "/pages/about", icon: "" },
-        ],
-    }],
+    nav: [
+        // {
+        //     text: "主页",
+        //     icon: "Home",
+        //     items: [
+        //         { text: "首页", link: "/", icon: "" },
+        //     ],
+        // },
+        {
+            text: "归档",
+            icon: "Folders",
+            items: [
+                { text: "年份", link: "/pages/archives", icon: "" },
+            ],
+        },
+        {
+            text: "链接",
+            icon: "Link",
+            items: [
+                { text: "github", link: "https://github.com/Olive1117", icon: "BrandGithub" },
+                { text: "gitee", link: "https://gitee.com/Olive1117", icon: "" },
+                { text: "bilibili", link: "https://space.bilibili.com/507776036?spm_id_from=333.1007.0.0", icon: "" },
+                { text: "twitter", link: "https://x.com/Olive718390", icon: "BrandTwitter" },
+            ],
+        },
+        {
+            text: "我的",
+            icon: "User",
+            items: [
+                { text: "动漫&文章", link: "/", icon: "Movie" },
+                { text: "日记", link: "/pages/archives", icon: "Notebook" },
+                { text: "图库", link: "/pages/about", icon: "Photo" },
+            ],
+        },
+        {
+            text: "关于",
+            icon: "InfoCircle",
+            items: [
+                { text: "我自己", link: "/", icon: "" },
+                { text: "友链", link: "/pages/archives", icon: "" },
+            ],
+        },
+        {
+            text: "其他",
+            icon: "Dots",
+            items: [
+                { text: "项目", link: "/", icon: "" },
+                { text: "技能", link: "/pages/archives", icon: "" },
+                { text: "时间线", link: "/pages/about", icon: "" },
+            ],
+        }],
     // 封面配置
     cover: {
         // 是否开启双栏布局

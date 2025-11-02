@@ -12,16 +12,19 @@
 
 import { h } from "vue";
 import App from "./App.vue";
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
 import "./style/main.scss";
 import Dynamicicon from './components/Dynamicicon.vue'
+import mitt from 'mitt';
+
+const emitter = mitt();
 
 const Theme = {
-  Layout: () => h(App),
+  Layout: () => {
+    return h(App);
+  },
   enhanceApp({ app, router, siteData }) {
-    app.use(ElementPlus);
-    app.component('dynamicicon', Dynamicicon);
+    app.component('Dynamicicon', Dynamicicon);
+    app.provide('eventBus', emitter);
     // router.onAfterRouteChange((to) => {
     // });
   }

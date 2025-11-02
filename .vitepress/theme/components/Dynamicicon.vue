@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { Icon } from '@vicons/utils'
-import { BrandGithub, BrandTwitter, ChevronDown, Dots, ExternalLink, Folders, Home, InfoCircle, Link, User } from '@vicons/tabler';
+import { Books, BrandGithub, BrandTwitter, Calendar, ChevronDown, ChevronsRight, Dots, ExternalLink, Folders, Hash, Home, InfoCircle, Link, Movie, Notebook, Photo, User } from '@vicons/tabler';
 
 const ICON_MAP = {
     'Home': Home,
@@ -20,6 +20,13 @@ const ICON_MAP = {
     'ExternalLink': ExternalLink,
     'Dots': Dots,
     'BrandGithub': BrandGithub,
+    'ChevronsRight': ChevronsRight,
+    'Calendar': Calendar,
+    'Books': Books,
+    'Hash': Hash,
+    'Notebook': Notebook,
+    'Movie': Movie,
+    'Photo': Photo,
 }
 
 const props = defineProps<{
