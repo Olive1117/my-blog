@@ -66,7 +66,7 @@ console.log("测试", window.location.pathname);
         gap: 10px;
         // background-color: aqua;
         flex-grow: 1;
-        overflow: hidden;
+        overflow: auto;
 
         .type-active {
             color: var(--color-primary);

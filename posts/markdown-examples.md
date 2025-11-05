@@ -26,14 +26,14 @@ export default {
 
 **Output**
 
-```js{4}
+```js:line-numbers=2 {1}
 export default {
   data () {
-    return {
-      msg: 'Highlighted!'
+    return { // [!code --]
+      msg: 'Highlighted!' // [!code ++]
     }
-  }
-}
+  } // [!code error]
+} // [!code warning]
 ```
 
 ## Custom Containers
@@ -90,3 +90,35 @@ Check out the documentation for the [full list of markdown extensions](https://v
 
 > [!CAUTION]
 > Negative potential consequences of an action.
+
+::: code-group
+
+```js [config.js]
+/**
+ * @type {import('vitepress').UserConfig}
+ */
+const config = {
+  // ...
+}
+
+export default config
+```
+
+```ts [config.ts]
+import type { UserConfig } from 'vitepress'
+
+const config: UserConfig = {
+  // ...
+}
+
+export default config
+```
+
+:::
+
+:::tabs
+== tab a
+a content
+== tab b
+b content ![image](/images/20250513224114.jpg)![image](/images/20250513224114.jpg)
+:::

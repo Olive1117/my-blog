@@ -20,7 +20,7 @@
                         <Dynamicicon icon="Books" class="icon" />
                         <div class="list">
                             <span v-for="cat in item?.categories" class="list">
-                                <a href="#" @click.stop="router.go(`pages/categories/${cat}`)" class="post-category">{{ cat }}</a>
+                                <a :href="`pages/categories/${cat}`" @click.stop.prevent="router.go(`pages/categories/${cat}`)" class="post-category">{{ cat }}</a>
                             </span>
                         </div>
                     </div>

@@ -1,7 +1,11 @@
 <template>
-    <h2>this`s PAGE!!!</h2>
-    <div class="markdown-main">
-        <Content class="markdown-main-style" />
+    <div class="post">
+        <!-- <h2>this`s PAGE!!!</h2> -->
+        <div class="markdown-main">
+            <Content class="markdown-main-style" />
+        </div>
+        <!-- <Aside /> -->
+        <Toc />
     </div>
 </template>
 
@@ -9,6 +13,8 @@
 import { ref, onMounted, onBeforeMount } from 'vue';
 import { useData, useRoute } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
+import Toc from '../components/Toc/Toc.vue';
+import Aside from '../components/Aside/index.vue';
 const { theme } = useData();
 const route = useRoute();
 const date = theme.value.postData.map((item) => {
@@ -24,11 +30,20 @@ console.log(route)
 <style lang="scss" scoped>
 // @use "../style/markdown.scss";
 @use "../style/post.scss";
-.markdown-main {
-    padding: 30px;
-    background-color: var(--color-card-background);
-    border: 3px solid var(--color-card-border);
-    border-radius: var(--radius-lg);
-}
 
+.post {
+    // position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    // align-items: start;
+    .markdown-main {
+        flex: 1;
+        min-width: 0;
+        padding: 30px;
+        background-color: var(--color-card-background);
+        border: 3px solid var(--color-card-border);
+        border-radius: var(--radius-lg);
+    }
+}
 </style>

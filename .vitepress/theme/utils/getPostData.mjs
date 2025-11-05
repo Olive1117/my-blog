@@ -3,6 +3,9 @@ import path from 'path';
 import matter from 'gray-matter';
 import crypto from 'crypto';
 
+// D:\code\vue\myblog\blog1.0.0
+const ROOT_DIR = path.resolve(process.cwd());
+const POSTS_DIR = path.resolve(ROOT_DIR, 'posts');
 // 获取所有文章
 export const getAllPosts = async () => {
   let paths = await getPostMDFilePaths();
@@ -14,6 +17,7 @@ export const getAllPosts = async () => {
       const { title, date, categories, description, tags, top, cover, img } = data;
       const { birthtimeMs, mtimeMs } = stat;
       const id = crypto.createHash('md5').update(String(birthtimeMs)).digest('hex');
+      const webRoutePath = fileToWebPath(path); 
       return {
         id: id,
         title: title || "未命名",
@@ -26,7 +30,7 @@ export const getAllPosts = async () => {
         cover: cover || "",
         img: img || "",
         path,
-        regularPath: `${path.replace(".md", ".html")}`,
+        regularPath: webRoutePath,
       };
     }));
     // posts.map(post => {
@@ -39,7 +43,6 @@ export const getAllPosts = async () => {
 // 获取文章地址
 const getPostMDFilePaths = async () => {
   try {
-    const POSTS_DIR = path.resolve(process.cwd(), 'posts');
     console.log(`[VitePress] 正在讀取文章目錄 ${POSTS_DIR}...`);
     const files = fs.readdirSync(POSTS_DIR).filter(file => file.endsWith('.md'));
     const paths = files.map(file => path.join(POSTS_DIR, file));
@@ -49,6 +52,24 @@ const getPostMDFilePaths = async () => {
     console.error("获取文章路径时出错:", error);
     throw error;
   }
+};
+// 將絕對檔案路徑轉換為 Web 路由
+const fileToWebPath = (filePath) => {
+  // 1. 將 Windows 反斜線 (\) 替換為 Web 斜線 (/)
+  let webPath = filePath.replace(/\\/g, '/');
+  // 2. 移除絕對路徑的根部分 (D:/code/vue/myblog/blog1.0.0)
+  // 3. 確保路徑以 / 開頭，並將 .md 替換為 .html (或移除 .md 以配合 clean urls)
+  // 移除 ROOT_DIR 部分，並替換為 /
+  webPath = webPath.replace(ROOT_DIR.replace(/\\/g, '/'), ''); 
+  // 如果 VitePress 啟用了 clean urls (推薦)，則只需移除 .md
+  // 否則，替換為 .html
+  // 這裡假設 VitePress 採用了預設的乾淨 URL (Clean URLs) 格式，即 /posts/article
+  let routePath = webPath.replace(/\.md$/, '');
+  // 確保路徑以 / 開頭
+  if (!routePath.startsWith('/')) {
+    routePath = '/' + routePath;
+  }
+  return routePath;
 };
 
 // 文章按时间降序排序

@@ -18,7 +18,6 @@ import { useData, useRoute } from 'vitepress'
 import Nav from './components/Nav.vue'
 import Post from './views/Post.vue'
 import Home from './views/Home.vue'
-import Mybutton from './components/Mybutton.vue';
 import Background from './components/Background.vue';
 import NotFound from './views/NotFound.vue';
 import Page from './views/Page.vue';
