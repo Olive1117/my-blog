@@ -1,16 +1,12 @@
 <template>
-    <Banner v-if="showHeader"/>
+    <Banner v-if="showHeader" />
     <!-- <h2>{{ theme.postData }}</h2> -->
     <!-- <h1>HALLO!!! this home!</h1> -->
     <!-- <h1 v-if="showCategory">this is category {{ showCategory }}</h1> -->
     <div class="home-content">
         <TypeBar />
         <PostList :list-data="listData" />
-        <Pagination 
-            :total="total" 
-            :page-size="pageSize" 
-            :base-path="basePath"
-        />
+        <Pagination :total="total" :page-size="pageSize" :base-path="basePath" />
     </div>
 </template>
 
@@ -20,7 +16,7 @@ import { computed, ref, watch, inject, onMounted, onUnmounted } from 'vue';
 import Banner from '../components/Banner.vue'
 import Pagination from '../components/Pagination.vue';
 import PostList from '../components/PostList.vue';
-import TypeBar from '../components/TypeBar.vue'; 
+import TypeBar from '../components/TypeBar.vue';
 
 const props = defineProps({
     showHeader: {
@@ -51,7 +47,6 @@ const emitter = inject('eventBus');
 const refreshKey = ref(0);
 const handleUpdatePage = () => {
     // 自动滚动到页面顶部
-    event.preventDefault();
     setTimeout(() => {
         window.scrollTo({
             top: 0,
@@ -109,10 +104,10 @@ const total = computed(() => {
 });
 
 onMounted(() => {
-  emitter.on('page-content-updated', handleUpdatePage);
+    emitter.on('page-content-updated', handleUpdatePage);
 });
 onUnmounted(() => {
-  emitter.off('page-content-updated', handleUpdatePage);
+    emitter.off('page-content-updated', handleUpdatePage);
 });
 </script>
 

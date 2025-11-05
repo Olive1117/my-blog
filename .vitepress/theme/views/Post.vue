@@ -32,11 +32,10 @@ console.log(route)
 @use "../style/post.scss";
 
 .post {
-    // position: relative;
     width: 100%;
     display: flex;
     flex-direction: row;
-    // align-items: start;
+    align-items: start;
     .markdown-main {
         flex: 1;
         min-width: 0;

@@ -78,6 +78,7 @@ const props = defineProps({
     listData: {
         type: [Array, String],
         default: () => [],
+        required: false,
     },
 });
 // console.log("props.listData:::", props.listData);
