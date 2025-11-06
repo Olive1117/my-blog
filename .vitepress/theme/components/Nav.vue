@@ -2,7 +2,7 @@
     <header class="main-header">
         <div :class="['main-nav', { scrolled: isScrolled }]">
             <div class="nav-left">
-                <a href="/" @click.prevent="emitter.emit('page-content-updated', { time: Date.now() })" class="logo">{{ site.title }}</a>
+                <a href="/" @click.prevent="emitter.emit('page-content-updated', { time: Date.now() })" class="logo">Oliver's Blog</a>
             </div>
             <div class="nav-center">
                 <a v-for="(value, index) in theme.nav" :key="index"
@@ -29,7 +29,7 @@
             </div>
             <div class="nav-right">
                 <span>搜索</span>
-                <span>翻译</span>
+                <Dynamicicon icon="Language" size="24"/>
                 <span>自定义</span>
                 <span>明暗</span>
             </div>
@@ -108,7 +108,10 @@ onUnmounted(() => {
         }
 
         .nav-left {
-            background-color: azure;
+            // background-color: azure;
+            padding: var(--spacing-md);
+            border-radius: 50px;
+            background-color: var(--color-primary-light);
         }
 
         .nav-center {
@@ -186,6 +189,9 @@ onUnmounted(() => {
                 .ChevronDown {
                     transition: transform 0.3s ease;
                 }
+            }
+            @media (max-width: 768px) {
+
             }
         }
 

@@ -4,9 +4,12 @@
     <!-- <h1>HALLO!!! this home!</h1> -->
     <!-- <h1 v-if="showCategory">this is category {{ showCategory }}</h1> -->
     <div class="home-content">
-        <TypeBar />
-        <PostList :list-data="listData" />
-        <Pagination :total="total" :page-size="pageSize" :base-path="basePath" />
+        <Aside class="aside" />
+        <div class="post-content">
+            <TypeBar />
+            <PostList :list-data="listData" />
+            <Pagination :total="total" :page-size="pageSize" :base-path="basePath" />
+        </div>
     </div>
 </template>
 
@@ -17,6 +20,7 @@ import Banner from '../components/Banner.vue'
 import Pagination from '../components/Pagination.vue';
 import PostList from '../components/PostList.vue';
 import TypeBar from '../components/TypeBar.vue';
+import Aside from '../components/Aside/Aside.vue';
 
 const props = defineProps({
     showHeader: {
@@ -49,7 +53,6 @@ const handleUpdatePage = () => {
     // 自动滚动到页面顶部
     window.scrollTo({
         top: 0,
-        behavior: 'smooth' // 关键：平滑滚动
     });
     refreshKey.value++;
 };
@@ -88,7 +91,7 @@ const getCurrentPage = computed(() => {
  */
 const listData = computed(() => {
     const page = getCurrentPage.value;
-    let data = postData.value;
+    const data = postData.value;
     // 根据页码和页大小进行切片 (分页逻辑)
     return data ? data.slice((page - 1) * pageSize, page * pageSize) : [];
 });
@@ -111,7 +114,29 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .home-content {
-    // background-color: rgb(255, 184, 158);
-    // padding: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 100%;
+
+    .post-content {
+        // width: 100%;
+        flex: 1;
+        min-width: 0;
+        // margin-right: 50px;
+    }
+
+    @media (max-width: 960px) {
+        flex-direction: column;
+        align-items: center;
+
+        // justify-content: center;
+        .post-content {
+            width: 100%;
+        }
+    }
 }
 </style>

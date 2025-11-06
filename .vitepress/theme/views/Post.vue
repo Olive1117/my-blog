@@ -14,7 +14,7 @@ import { ref, onMounted, onBeforeMount } from 'vue';
 import { useData, useRoute } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
 import Toc from '../components/Toc/Toc.vue';
-import Aside from '../components/Aside/index.vue';
+import Aside from '../components/Aside/Aside.vue';
 const { theme } = useData();
 const route = useRoute();
 const date = theme.value.postData.map((item) => {

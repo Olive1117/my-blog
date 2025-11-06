@@ -8,7 +8,7 @@
                 <img v-if="item.img" :src="item?.img" :alt="item.title" class="post-img">
             </div>
 
-            <div class="post-content">
+            <div class="post-content" :style="{'margin-right': item.img ? '300px' : '0px'}">
                 <span class="post-title">{{ item.title }}</span>
                 <div class="post-type">
                     <div class="info">
@@ -20,7 +20,9 @@
                         <Dynamicicon icon="Books" class="icon" />
                         <div class="list">
                             <span v-for="cat in item?.categories" class="list">
-                                <a :href="`pages/categories/${cat}`" @click.stop.prevent="router.go(`pages/categories/${cat}`)" class="post-category">{{ cat }}</a>
+                                <a :href="`pages/categories/${cat}`"
+                                    @click.stop.prevent="router.go(`pages/categories/${cat}`)" class="post-category">
+                                    {{ cat }}</a>
                             </span>
                         </div>
                     </div>
@@ -51,25 +53,6 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue';
-// const source = ref({
-//     "0001": {
-//         title: "Hello VitePress",
-//         date: "2022-01-01",
-//         author: "admin",
-//         excerpt: "这是我的第一篇文章",
-//         type: "article",
-//         tags: ["VitePress", "Vue"]
-//     },
-//     "0002": {
-//         title: "VitePress,为了足够长,测试一下能否换行喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵",
-//         date: "2022-01-01",
-//         author: "admin",
-//         excerpt: "这是我的第二篇文章,为了足够长,测试一下能否换行喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵",
-//         type: "article",
-//         tags: ["VitePress", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue", "Vue"]
-//     }
-// });
 import { useData, useRouter } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
 const { theme } = useData();
@@ -81,7 +64,6 @@ const props = defineProps({
         required: false,
     },
 });
-// console.log("props.listData:::", props.listData);
 </script>
 
 <style lang="scss" scoped>
@@ -93,26 +75,35 @@ const props = defineProps({
     padding: 30px 0;
 
     .post-item {
+        position: relative;
         display: flex;
         flex-direction: row;
         flex-direction: row-reverse;
+        align-items: stretch;
         gap: var(--spacing-lg);
-        height: 200px;
+        // min-height: 100px;
+        // height: 256px;
         padding: var(--spacing-md);
         transition: 0.3s ease;
         background-color: var(--color-card-background);
         border: 3px solid var(--color-card-border);
         border-radius: var(--radius-lg);
+        // overflow: hidden;
+
 
         &:hover {
             border-color: var(--color-primary);
         }
 
         .post-cover {
-            flex: 0 0 25%;
+            position: absolute;
             overflow: hidden;
+            top: 0;
+            right: 0;
             transform: translateZ(0);
-            border-radius: var(--radius-lg);
+            padding: var(--spacing-xs);
+            width: 300px;
+            height: 100%;
 
             img {
                 width: 100%;
@@ -122,24 +113,27 @@ const props = defineProps({
                 will-change: transform, filter;
                 transition: transform 0.5s ease-out, filter 0.5s ease-out;
                 backface-visibility: hidden;
+                border-radius: var(--radius-lg);
             }
         }
 
         .post-content {
-            flex: 1;
+            // flex: 1 1 75%;
+            min-width: 0;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             gap: var(--spacing-sm);
             padding: var(--spacing-md);
 
+
             .post-title {
-                flex: 1;
-                display: -webkit-box;
-                overflow: hidden;
-                word-break: break-all;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
+                // flex: 1;
+                // display: -webkit-box;
+                // overflow: hidden;
+                // word-break: break-all;
+                // -webkit-box-orient: vertical;
+                // -webkit-line-clamp: 2;
                 font: var(--title);
             }
 
@@ -152,6 +146,13 @@ const props = defineProps({
                 gap: var(--spacing-sm);
                 font: var(--type);
                 white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                mask: linear-gradient(90deg,
+                        #fff 0,
+                        #fff 90%,
+                        hsla(0, 0%, 100%, 0.6) 95%,
+                        hsla(0, 0%, 100%, 0) 100%);
 
                 .list {
                     display: flex;
@@ -176,9 +177,9 @@ const props = defineProps({
                         color: var(--color-primary);
                     }
 
-                    .post-date {
-                        white-space: nowrap;
-                    }
+                    // .post-date {
+                    //     white-space: nowrap;
+                    // }
 
                     .post-category {
                         display: flex;
@@ -218,28 +219,53 @@ const props = defineProps({
                         // }
                     }
                 }
+
+
             }
 
             .post-desc {
-                flex: 1;
+                // flex: 1;
                 // background-color: rgb(229, 255, 196);
-                display: -webkit-box;
-                overflow: hidden;
-                word-break: break-all;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
+                // display: -webkit-box;
+                // overflow: hidden;
+                // word-break: break-all;
+                // -webkit-box-orient: vertical;
+                // -webkit-line-clamp: 2;
                 font: var(--desc);
             }
+        }
 
-            // .post-meta {
-            //     display: flex;
-            //     flex-direction: row;
-            //     align-items: center;
-            //     justify-content: flex-start;
-            //     gap: 10px;
-            //     flex-wrap: wrap;
-            //     background-color: rgb(196, 255, 226);
+        // @media (max-width: 960 768px)
+        @media (max-width: 960px) {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: var(--spacing-xs);
+            // max-height: none;
+            max-height: 500px;
+
+            // .post-content {
+            //     margin-right: 0;
             // }
+
+            .post-cover {
+                position: relative;
+                // width: 100%;
+                // flex-basis: auto;
+                // height: 30%;
+                width: 100%;
+                height: 160px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transform-origin: center center;
+                    will-change: transform, filter;
+                    transition: transform 0.5s ease-out, filter 0.5s ease-out;
+                    backface-visibility: hidden;
+                }
+            }
         }
     }
 }

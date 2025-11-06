@@ -1,11 +1,8 @@
 <template>
     <div class="toc">
         <!-- <h2>目录</h2> -->
-        <div class="toc-container">
-            <div class="toc-indicator-top" :style="indicatorStyleTop"></div>
-            <div class="toc-indicator-bottom" :style="indicatorStyleBottom"></div>
-            <toc-item :headers="page.headers" :active-hash="activeHash" />
-        </div>
+        <div class="toc-indicator" :style="indicatorStyle"></div>
+        <toc-item :headers="page.headers" :active-hash="activeHash" />
 
         <button @click="gototop">回到最顶上</button>
     </div>
@@ -64,37 +61,29 @@ const initObserver = () => {
 };
 
 // **新增：滑块指示器的状态**
-const indicatorStyleTop = ref({
-    transform: 'translateY(0px)',
+const indicatorStyle = ref({
+    top: '0px',
+    bottom: '100%',
     height: '0px',
-    // opacity: 1, // 初始隐藏
-});
-const indicatorStyleBottom = ref({
-    transform: 'translateY(0px)',
-    height: '0px',
-    // opacity: 1, // 初始隐藏
 });
 
+
 const updateIndicator = () => {
-    // 高亮dom
+    // toc目录dom
+    const tocDom = document.querySelector('.toc');
+    const tocTop = tocDom.getBoundingClientRect().top;
+    const tocBottom = tocDom.getBoundingClientRect().bottom;
+    // active高亮dom
     const activeDom = document.querySelectorAll('.active.header-link');
-    // toc目录头部top距离
-    const tocDom = document.querySelector('.toc').getBoundingClientRect().top;
-    // 高亮dom顶部top距离
-    const topActive = activeDom[0].getBoundingClientRect().top;
-    // 高亮dom底部bottom距离
-    const bottomActive = activeDom[activeDom.length - 1].getBoundingClientRect().bottom;
-    console.log("activeDom", activeDom, "topActive",activeDom[0], "bottomActive",activeDom[activeDom.length - 1], "tocDom",document.querySelector('.toc'));
-    indicatorStyleTop.value = {
-        transform: `translateY(${topActive - tocDom}px)`, // 使用 transform 实现丝滑平移
-        height: `${(bottomActive - topActive) * 0.6}px`,
-        // opacity: 1, // 显示滑块
+    const activeTop = activeDom[0].getBoundingClientRect().top;
+    const activeBottom = activeDom[activeDom.length - 1].getBoundingClientRect().bottom;
+    // console.log("activeDom", activeDom, "activeTop", activeDom[0], "activeBottom", activeDom[activeDom.length - 1], "tocDom", document.querySelector('.toc'));
+    // console.log("tocTop", tocTop, "tocBottom", tocBottom, "activeTop", activeTop, "activeBottom", activeBottom);
+    indicatorStyle.value = {
+        top: `${activeTop - tocTop}px`,
+        bottom: `${tocBottom - activeBottom}px`,
     }
-    indicatorStyleBottom.value = {
-        transform: `translateY(${bottomActive - tocDom - (bottomActive - topActive) * 0.6}px)`, // 使用 transform 实现丝滑平移
-        height: `${(bottomActive - topActive) * 0.6}px`,
-        // opacity: 1, // 显示滑块
-    }
+
 };
 // **修改：监听 activeHash 变化时调用更新函数**
 watch(activeHash, () => {
@@ -152,8 +141,7 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .toc {
     position: sticky;
-    top: 80px; /* <--- 重点修改：定位于视口 50% 的位置 */
-    // transform: translateY(-50%);
+    top: 80px;
     padding: 16px;
     width: 200px;
     margin: 0 0 0 20px;
@@ -162,43 +150,22 @@ onUnmounted(() => {
     border-radius: 12px; // 圆角
     border: 1px solid var(--color-border); // 边框
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // 轻微阴影
-
-    // display: flex;
-    // flex-direction: column;
-    .toc-container {
-        
-        // padding: 8px 0; // 为 TocItem 列表增加垂直内边距，避免紧贴容器边缘
-        .toc-indicator-top,
-        .toc-indicator-bottom {
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 1;
-            border-left: 2px solid var(--color-primary);
-            border-right: 2px solid var(--color-primary);
-            background-color: var(--color-primary-light);
-            transition: all 0.3s ease, background-color 0.3s;
-        }
-
-        .toc-indicator-top {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .toc-indicator-bottom {
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-
-        &:hover {
-
-            .toc-indicator-top,
-            .toc-indicator-bottom {
-                background-color: rgba(255, 255, 255, 0);
-                // border: 2px solid var(--color-primary);
-            }
+    .toc-indicator {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        z-index: -1;
+        border-radius: var(--radius-md);
+        opacity: 1;
+        border-left: 2px solid var(--color-primary);
+        border-right: 2px solid var(--color-primary);
+        background-color: var(--color-primary-light);
+        transition: all 0.3s ease-in-out;
+    }
+    &:hover {
+        .toc-indicator {
+            background-color: rgba(255, 255, 255, 0);
+            // border: 2px solid var(--color-primary);
         }
     }
 
@@ -213,7 +180,7 @@ onUnmounted(() => {
         border-radius: 8px;
         cursor: pointer;
         font-weight: 500;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s ease;
 
         &:hover {
             background-color: var(--color-primary-dark);

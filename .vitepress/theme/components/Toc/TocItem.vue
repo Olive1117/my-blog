@@ -43,7 +43,7 @@ onMounted(() => {
         padding: 5px 0;
         // margin: 2px 0;
         transition: color 0.2s, background-color 0.2s, border-left-color 0.2s; // 增加过渡动画
-
+        border-radius: var(--radius-lg);
         // 统一的左侧指示条样式
         border-left: 3px solid transparent; // 默认透明
         line-height: 1.5; // 提高行高，改善阅读体验
@@ -125,12 +125,9 @@ onMounted(() => {
     .header-link:hover {
         color: var(--color-primary-dark);
         background-color: var(--color-primary-light);
-        border-radius: 4px;
+        // z-index: ;
         // 悬浮时也高亮左侧边框，提供更好的反馈
         // border-color: var(--color-primary);
-        &.level-1::before {
-            // display: none;
-        }
     }
 }
 </style>
