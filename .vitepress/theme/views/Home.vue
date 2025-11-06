@@ -47,12 +47,10 @@ const emitter = inject('eventBus');
 const refreshKey = ref(0);
 const handleUpdatePage = () => {
     // 自动滚动到页面顶部
-    setTimeout(() => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // 关键：平滑滚动
-        });
-    }, 50);
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 关键：平滑滚动
+    });
     refreshKey.value++;
 };
 

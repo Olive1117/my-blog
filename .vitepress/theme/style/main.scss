@@ -64,6 +64,7 @@
 
 /* 字体 */
 html {
+  scroll-behavior: smooth;
   &.hmos {
     --main-font-family: "HarmonyOS_Regular", sans-serif;
   }

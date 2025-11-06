@@ -6,7 +6,6 @@
         </div>
     </div>
 </template>
-
 <script setup>
 import { ref, computed, inject, onMounted, onUnmounted } from 'vue'
 const props = defineProps({
@@ -26,14 +25,12 @@ const props = defineProps({
 const currentPage = ref(0);
 const emitter = inject('eventBus');
 console.log(currentPage.value);
-
 const update = () => { currentPage.value = Number(new URLSearchParams(window.location.search).get('page')) || 1 };
 const jumpPage = (pageItem) => {
     currentPage.value = pageItem.pageNumber;
     window.history.pushState({}, '', pageItem.regularPath);
     emitter.emit('page-content-updated', { time: Date.now() });
 };
-
 const pageList = computed(() => {
     const totalPage = Math.ceil(props.total / props.pageSize);
     const list = [];
@@ -46,16 +43,20 @@ const pageList = computed(() => {
     }
     return list;
 });
-
+const handlePopState = () => {
+    update();
+    emitter.emit('page-content-updated', { time: Date.now() });
+};
 onMounted(() => {
     update();
     emitter.on('page-content-updated', update);
+    window.addEventListener('popstate', handlePopState);
 });
 onUnmounted(() => {
     emitter.off('page-content-updated', update);
+    window.removeEventListener('popstate', handlePopState);
 });
 </script>
-
 <style lang="scss" scoped>
 .pagination {
     display: flex;
