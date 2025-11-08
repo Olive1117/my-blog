@@ -1,8 +1,33 @@
 <template>
     <Teleport to="body">
         <div class="background">
+            <img src="/images/IMG_2550.PNG?url" alt="">
             <div class="background-overlay"></div>
-            <!-- <img src="" alt=""> -->
+            <svg width="0" height="0" style="position:absolute; overflow:hidden;">
+                <defs>
+                    <filter id="pixelate-hack">
+                        <!-- 步骤 1: feTurbulence (创建噪声) -->
+                        <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.001 0.1" numOctaves="1"
+                            result="smooth-noise" />
+                        <!-- 步骤 2: feComponentTransfer (将噪声块化) -->
+                        <feComponentTransfer in="smooth-noise" result="block-map">
+                            <feFuncR type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1" />
+                            <feFuncG type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1" />
+                            <!-- B 和 A 通道不重要，因为位移图只使用 R 和 G -->
+                        </feComponentTransfer>
+                        <!-- 步骤 3: feDisplacementMap (位移) -->
+                        <feDisplacementMap in="SourceGraphic" in2="block-map" scale="10" xChannelSelector="R"
+                            yChannelSelector="G" result="pixelated" />
+                        <feColorMatrix in="pixelated" type="saturate" values="0.2" />
+                        <!-- 步骤 4: animate (动画) -->
+                        <animate xlink:href="#turbulence" attributeName="baseFrequency" dur="60s" keyTimes="0;0.5;1"
+                            values="
+                            0.001 0.1;
+                            0.008 0.1;
+                            0.001 0.1" repeatCount="indefinite" />
+                    </filter>
+                </defs>
+            </svg>
         </div>
     </Teleport>
 </template>
@@ -37,7 +62,21 @@
     background-color: #DFDBE5;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform-origin: center center;
+        will-change: transform, filter;
+        transition: transform 0.5s ease-out, filter 0.5s ease-out;
+        backface-visibility: hidden;
+        filter: url(#pixelate-hack);
+    }
+
     .background-overlay {
+        position: absolute;
+        top: 0;
+        width: 100%;
         height: 100%;
         background-image:
             linear-gradient(to bottom,

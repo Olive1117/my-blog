@@ -3,6 +3,8 @@ export const themeConfig = {
     siteMeta: {
         // 站点标题
         title: "Olive Blog",
+        // 作者
+        username: "Olive",
         // 站点描述
         description: "Hello World",
         // 站点logo

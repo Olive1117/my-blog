@@ -5,7 +5,7 @@
             <Content class="markdown-main-style" />
         </div>
         <!-- <Aside /> -->
-        <Toc />
+        <Toc class="toc"/>
     </div>
 </template>
 
@@ -14,7 +14,6 @@ import { ref, onMounted, onBeforeMount } from 'vue';
 import { useData, useRoute } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
 import Toc from '../components/Toc/Toc.vue';
-import Aside from '../components/Aside/Aside.vue';
 const { theme } = useData();
 const route = useRoute();
 const date = theme.value.postData.map((item) => {
@@ -45,6 +44,12 @@ console.log(route)
         background-color: var(--color-card-background);
         border: 3px solid var(--color-card-border);
         border-radius: var(--radius-lg);
+        box-shadow: var(--box-shadow);
+    }
+    @media (max-width: 960px) {
+        .toc {
+            display: none;
+        }
     }
 }
 </style>

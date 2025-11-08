@@ -21,7 +21,7 @@ const props = defineProps({
         required: false,
     }
 });
-console.log("子组件的props", props.activeHash);
+// console.log("子组件的props", props.activeHash);
 const isActive = (header) => {
     return props.activeHash.includes(header.slug);
 }

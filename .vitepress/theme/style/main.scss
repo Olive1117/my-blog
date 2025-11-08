@@ -23,7 +23,7 @@
   --color-text-base: #333;
   --color-text-second: #868686;
   --color-text-third: #e7e8ec;
-  --color-card-background: rgba(255, 255, 255, 0.8);
+  --color-card-background: rgba(255, 255, 255, 0.95);
   --color-card-border: rgba(255, 255, 255, 1);
   --color-card-background-second: rgba(234, 234, 234, 1);
   --color-card-border-second: rgba(136, 136, 136, 1);
@@ -59,6 +59,8 @@
   --content: 1em/1.7 "Helvetica Neue", sans-serif;
   --desc: 1.1em/1.4 "Helvetica Neue", sans-serif;
   --type: 500 0.9em/1 "Helvetica Neue", sans-serif;
+
+  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -101,4 +103,7 @@ a {
   &:hover {
     color: var(--main-color);
   }
+}
+ul {
+  list-style-type: none;
 }

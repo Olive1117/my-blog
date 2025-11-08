@@ -2,9 +2,8 @@
   <Background />
   <div class="main">
     <Nav />
-    <!-- <Mybutton>按钮</Mybutton> -->
     <NotFound v-if="page.isNotFound" />
-    <Home v-else-if="frontmatter.layout === 'home'" show-header/>
+    <Home v-else-if="frontmatter.layout === 'home'" show-header />
     <template v-else>
       <Post v-if="isPostPage" />
       <Page v-else-if="!page.isNotFound" />
@@ -39,5 +38,9 @@ const isPostPage = computed(() => {
   padding: 0 100px;
   max-width: 1440px;
   margin: 0 auto;
+
+  @media (max-width: 576px) {
+    padding: 0;
+  }
 }
 </style>

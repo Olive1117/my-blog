@@ -118,10 +118,14 @@ onUnmounted(() => {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    gap: var(--spacing-xl);
     margin-top: 50px;
     margin-bottom: 50px;
     width: 100%;
-
+    .aside {
+        // flex: 0.25;
+        width: 210px;
+    }
     .post-content {
         // width: 100%;
         flex: 1;
@@ -132,7 +136,9 @@ onUnmounted(() => {
     @media (max-width: 960px) {
         flex-direction: column;
         align-items: center;
-
+        .aside {
+            display: none;
+        }
         // justify-content: center;
         .post-content {
             width: 100%;

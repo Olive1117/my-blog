@@ -67,7 +67,6 @@ const indicatorStyle = ref({
     height: '0px',
 });
 
-
 const updateIndicator = () => {
     // toc目录dom
     const tocDom = document.querySelector('.toc');
@@ -75,8 +74,8 @@ const updateIndicator = () => {
     const tocBottom = tocDom.getBoundingClientRect().bottom;
     // active高亮dom
     const activeDom = document.querySelectorAll('.active.header-link');
-    const activeTop = activeDom[0].getBoundingClientRect().top;
-    const activeBottom = activeDom[activeDom.length - 1].getBoundingClientRect().bottom;
+    const activeTop = activeDom[0]?.getBoundingClientRect().top;
+    const activeBottom = activeDom[activeDom.length - 1]?.getBoundingClientRect().bottom;
     // console.log("activeDom", activeDom, "activeTop", activeDom[0], "activeBottom", activeDom[activeDom.length - 1], "tocDom", document.querySelector('.toc'));
     // console.log("tocTop", tocTop, "tocBottom", tocBottom, "activeTop", activeTop, "activeBottom", activeBottom);
     indicatorStyle.value = {
@@ -127,6 +126,7 @@ watch(visibleHeaders, (newVH, oldVH) => {
         });
     }
 }, { deep: true });
+
 onMounted(() => {
     initObserver();
     getHeaders(page.value.headers);
@@ -150,6 +150,7 @@ onUnmounted(() => {
     border-radius: 12px; // 圆角
     border: 1px solid var(--color-border); // 边框
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // 轻微阴影
+
     .toc-indicator {
         position: absolute;
         width: 100%;
@@ -162,6 +163,7 @@ onUnmounted(() => {
         background-color: var(--color-primary-light);
         transition: all 0.3s ease-in-out;
     }
+
     &:hover {
         .toc-indicator {
             background-color: rgba(255, 255, 255, 0);

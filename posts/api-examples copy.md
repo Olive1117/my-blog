@@ -4,7 +4,7 @@ title: Runtime API 2
 data: 2021-07-15
 categories: [随便说说]
 tags: [测试, 测试2, 测试3]
-# img: "/images/20250513224114.jpg"
+img: "/images/20250513224114.jpg"
 description: "This page demonstrates usage of some of the runtime APIs provided by VitePress."
 ---
 

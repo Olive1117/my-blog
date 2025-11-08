@@ -8,7 +8,7 @@
                 <img v-if="item.img" :src="item?.img" :alt="item.title" class="post-img">
             </div>
 
-            <div class="post-content" :style="{'margin-right': item.img ? '300px' : '0px'}">
+            <div :class="['post-content', { 'has-img': item.img }]">
                 <span class="post-title">{{ item.title }}</span>
                 <div class="post-type">
                     <div class="info">
@@ -88,7 +88,7 @@ const props = defineProps({
         background-color: var(--color-card-background);
         border: 3px solid var(--color-card-border);
         border-radius: var(--radius-lg);
-        // overflow: hidden;
+        box-shadow: var(--box-shadow);
 
 
         &:hover {
@@ -97,7 +97,6 @@ const props = defineProps({
 
         .post-cover {
             position: absolute;
-            overflow: hidden;
             top: 0;
             right: 0;
             transform: translateZ(0);
@@ -138,7 +137,9 @@ const props = defineProps({
             }
 
             .post-type {
-                height: 30px;
+                // height: 30px;
+                flex-wrap: wrap;
+                height: auto;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -146,13 +147,13 @@ const props = defineProps({
                 gap: var(--spacing-sm);
                 font: var(--type);
                 white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                mask: linear-gradient(90deg,
-                        #fff 0,
-                        #fff 90%,
-                        hsla(0, 0%, 100%, 0.6) 95%,
-                        hsla(0, 0%, 100%, 0) 100%);
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                // mask: linear-gradient(90deg,
+                //         #fff 0,
+                //         #fff 90%,
+                //         hsla(0, 0%, 100%, 0.6) 95%,
+                //         hsla(0, 0%, 100%, 0) 100%);
 
                 .list {
                     display: flex;
@@ -233,6 +234,20 @@ const props = defineProps({
                 // -webkit-line-clamp: 2;
                 font: var(--desc);
             }
+
+            &.has-img {
+                padding-right: 300px;
+            }
+        }
+
+        @media (max-width: 1080px) {
+            .post-cover {
+                width: 150px;
+            }
+
+            .post-content.has-img {
+                padding-right: 150px;
+            }
         }
 
         // @media (max-width: 960 768px)
@@ -247,14 +262,18 @@ const props = defineProps({
             // .post-content {
             //     margin-right: 0;
             // }
+            .post-content.has-img {
+                padding-right: 0;
+                padding-bottom: 200px;
+            }
 
             .post-cover {
-                position: relative;
-                // width: 100%;
-                // flex-basis: auto;
-                // height: 30%;
+                position: absolute;
+                top: auto;
+                bottom: 0;
+                left: 0;
                 width: 100%;
-                height: 160px;
+                height: 200px;
 
                 img {
                     width: 100%;
@@ -267,6 +286,7 @@ const props = defineProps({
                 }
             }
         }
+
     }
 }
 </style>

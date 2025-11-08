@@ -2,7 +2,8 @@
     <header class="main-header">
         <div :class="['main-nav', { scrolled: isScrolled }]">
             <div class="nav-left">
-                <a href="/" @click.prevent="emitter.emit('page-content-updated', { time: Date.now() })" class="logo">Oliver's Blog</a>
+                <a href="/" @click.prevent="emitter.emit('page-content-updated', { time: Date.now() })"
+                    class="logo">Oliver's Blog</a>
             </div>
             <div class="nav-center">
                 <a v-for="(value, index) in theme.nav" :key="index"
@@ -15,8 +16,7 @@
                     <Dynamicicon v-if="!isSingleLink(value.items)" :icon="'ChevronDown'" :tag="'span'"
                         class="ChevronDown" />
                     <div v-if="!isSingleLink(value.items)" class="link-child">
-                        <a v-for="(child, childIndex) in value.items" :key="childIndex"
-                            :href="child.link"
+                        <a v-for="(child, childIndex) in value.items" :key="childIndex" :href="child.link"
                             @click.prevent="goto(value.items[childIndex].link)" class="link-child-item">
                             <span class="link-child-btn">
                                 <Dynamicicon v-if="child.icon" :icon="child.icon" :tag="'span'" />
@@ -28,10 +28,10 @@
                 </a>
             </div>
             <div class="nav-right">
-                <span>搜索</span>
-                <Dynamicicon icon="Language" size="24"/>
-                <span>自定义</span>
-                <span>明暗</span>
+                <Dynamicicon icon="Search" size="24" />
+                <Dynamicicon icon="Language" size="24" />
+                <Dynamicicon icon="Palette" size="24" />
+                <Dynamicicon icon="Moon" size="24" />
             </div>
         </div>
     </header>
@@ -190,9 +190,8 @@ onUnmounted(() => {
                     transition: transform 0.3s ease;
                 }
             }
-            @media (max-width: 768px) {
 
-            }
+            @media (max-width: 768px) {}
         }
 
         .nav-right {
@@ -202,7 +201,15 @@ onUnmounted(() => {
             gap: var(--spacing-sm);
 
             span {
-                background-color: chartreuse;
+                // background-color: chartreuse;
+            }
+        }
+
+        @media (max-width: 960px) {
+            // justify-content: space-around;
+
+            .nav-center {
+                display: none;
             }
         }
     }

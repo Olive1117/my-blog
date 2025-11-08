@@ -12,8 +12,15 @@
     // justify-self: center;
     // align-self: center;
     text-align: center;
+    font-size: 20px;
     // background-color: #f5f5f5;
-    margin: 25px 0;
+    margin: 100px 0;
     line-height: 50px;
+    color: #ffffff;
+    text-shadow: 2px 2px 2px #000000;
+    h1 {
+        font-size: 50px;
+        font-weight: 900;
+    }
 }
 </style>

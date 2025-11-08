@@ -50,6 +50,7 @@ console.log("测试", window.location.pathname);
     border: 3px solid var(--color-card-border);
     border-radius: var(--radius-md);
     color: var(--color-text-base);
+    box-shadow: var(--box-shadow);
 
     &:hover {
         border-color: var(--color-primary);
@@ -71,6 +72,7 @@ console.log("测试", window.location.pathname);
         .type-active {
             color: var(--color-primary);
             background-color: var(--color-primary-light);
+
             &.type-item:hover {
                 color: var(--color-primary-dark);
             }
