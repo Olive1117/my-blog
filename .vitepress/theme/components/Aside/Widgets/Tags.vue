@@ -7,12 +7,11 @@
         </div>
         <ul class="tags-list">
             <li v-for="(value, key, index) in tags" :key="index">
-                <a :href="`/pages/tags/${key}`" class="tags-item">
+                <a :href="`/pages/tags/${key}`" @click="updateParams()" class="tags-item">
                     <span class="tags-name">
                         {{ key }}
                         <sup class="tags-count">{{ value.count }}</sup>
                     </span>
-                    
                 </a>
             </li>
         </ul>
@@ -21,9 +20,11 @@
 
 <script setup>
 import { useData } from 'vitepress'
+import useUrlSearchParams from '../../../utils/useUrlSearchParams.mjs';
+const { params, updateParams } = useUrlSearchParams();
 const { theme } = useData();
 const tags = theme.value.tagsData;
-console.log("tag::::", theme.value.tagsData);
+// console.log("tag::::", theme.value.tagsData);
 </script>
 
 <style lang="scss" scoped>

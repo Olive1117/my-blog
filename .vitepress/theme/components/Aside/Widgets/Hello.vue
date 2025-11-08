@@ -9,7 +9,7 @@
 <script setup>
 import { useData } from 'vitepress';
 const { theme } = useData();
-console.log("站点信息", theme.value.siteMeta);
+// console.log("站点信息", theme.value.siteMeta);
 </script>
 
 <style lang="scss" scoped>

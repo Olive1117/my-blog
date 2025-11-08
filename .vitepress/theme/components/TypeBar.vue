@@ -2,14 +2,14 @@
     <!-- <h1>标签列表</h1> -->
     <div class="type-bar">
         <div class="all-type">
-            <a href="/" @click="emitter.emit('page-content-updated', { time: Date.now() })"
-                :class="['type-item', { 'type-active': path === '/' }]">首页</a>
-            <a v-for="(value, key, index) in theme?.categoriesData" :key="index" :href="`/pages/categories/${key}`"
-                :class="['type-item', { 'type-active': path === `/pages/categories/${key}` }]">
-                {{ key }}
+            <a :href="basePath" @click="updateParams()"
+                :class="['type-item', { 'type-active': !paramName }]">首页</a>
+            <a v-for="(value, index) in list" :key="index" :href="`${basePath}/${value}`"
+                @click="updateParams()" :class="['type-item', { 'type-active': paramName === value }]">
+                {{ value }}
             </a>
         </div>
-        <a href="/page/categories" class="type-more">
+        <a :href="basePath" @click="updateParams()" class="type-more">
             <Dynamicicon icon="ChevronsRight" tag="span" size="24" />
             <span>全部</span>
         </a>
@@ -17,25 +17,25 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue'
-// const type = ref({
-//     "标签1": 1,
-//     "标签2": 4,
-//     "标签3": 7,
-//     "标签5": 3,
-//     "标签6": 3,
-//     "标签7": 3,
-//     "标签8": 7,
-//     "标签9": 3,
-// })
 import { useData, useRoute } from 'vitepress';
-import { inject } from 'vue';
-const { theme } = useData();
+import { inject, computed } from 'vue';
+import useUrlSearchParams from '../utils/useUrlSearchParams.mjs';
+const { theme, page } = useData();
 const { frontmatter, route } = useRoute();
-const emitter = inject('eventBus');
-let path = decodeURIComponent(window.location.pathname);
-console.log("测试", path);
-console.log("测试", window.location.pathname);
+const paramName = computed(() => page.value.params?.name);
+const { params, updateParams } = useUrlSearchParams();
+const props = defineProps({
+    list: {
+        type: Array,
+        default: () => []
+    },
+    basePath: {
+        type: String,
+        default: '/'
+    },
+});
+console.log("测试", props.basePath);
+// console.log("测试", window.location.pathname);
 </script>
 
 <style lang="scss" scoped>

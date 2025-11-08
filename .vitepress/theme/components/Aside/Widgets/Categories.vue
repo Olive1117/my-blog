@@ -7,7 +7,7 @@
         </div>
         <ul class="cat-list">
             <li v-for="(value, key, index) in categories" :key="index">
-                <a :href="`/pages/categories/${key}`" class="cat-item">
+                <a :href="`/pages/categories/${key}`" @click="updateParams()" class="cat-item">
                     <span class="cat-name">{{ key }}</span>
                     <span class="cat-count">{{ value.count }}</span>
                 </a>
@@ -18,9 +18,11 @@
 
 <script setup>
 import { useData } from 'vitepress'
+import useUrlSearchParams from '../../../utils/useUrlSearchParams.mjs';
+const { params, updateParams } = useUrlSearchParams();
 const { theme } = useData();
 const categories = theme.value.categoriesData;
-console.log("categories::::", theme.value.categoriesData);
+// console.log("categories::::", theme.value.categoriesData);
 </script>
 
 <style lang="scss" scoped>

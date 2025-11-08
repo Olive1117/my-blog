@@ -16,6 +16,9 @@ export default defineConfig({
   lang: themeConfig.siteMeta.lang,
   // 简洁的 URL
   cleanUrls: true,
+  // rewrites: {
+  //   'pages/:path(.*)': '/:path',
+  // },
   // 最后更新时间戳
   lastUpdated: true,
   // 主题

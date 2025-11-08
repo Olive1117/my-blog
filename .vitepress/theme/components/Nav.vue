@@ -41,7 +41,7 @@
 import { useData, useRouter } from 'vitepress'
 import { ref, onMounted, onUnmounted, inject } from 'vue';
 const { site, theme } = useData();
-console.log("site", site, "theme", theme);
+// console.log("site", site, "theme", theme);
 const router = useRouter();
 const emitter = inject('eventBus');
 const isScrolled = ref(false);

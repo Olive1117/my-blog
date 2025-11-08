@@ -1,13 +1,11 @@
 <template>
     <!-- <h1>文章列表</h1> -->
-    <div class="post-list">
-
-        <div v-for="(item, key, index) in listData" :key="index" @click="router.go(item.regularPath)" class="post-item">
-
+    <TransitionGroup name="list-slide" tag="div" appear class="post-list">
+        <div v-for="(item, key, index) in listData" :key="item.regularPath" @click="router.go(item.regularPath)"
+            class="post-item">
             <div v-if="item.img" class="post-cover">
                 <img v-if="item.img" :src="item?.img" :alt="item.title" class="post-img">
             </div>
-
             <div :class="['post-content', { 'has-img': item.img }]">
                 <span class="post-title">{{ item.title }}</span>
                 <div class="post-type">
@@ -15,13 +13,11 @@
                         <Dynamicicon icon="Calendar" class="icon" />
                         <span class="post-date">{{ formatDate(item.date, "YYYY-MM-DD") }}</span>
                     </div>
-
                     <div class="info">
                         <Dynamicicon icon="Books" class="icon" />
                         <div class="list">
                             <span v-for="cat in item?.categories" class="list">
-                                <a :href="`pages/categories/${cat}`"
-                                    @click.stop.prevent="router.go(`pages/categories/${cat}`)" class="post-category">
+                                <a :href="`/pages/categories/${cat}`" @click.stop="updateParams()" class="post-category">
                                     {{ cat }}</a>
                             </span>
                         </div>
@@ -30,13 +26,11 @@
                         <Dynamicicon icon="Hash" class="icon" />
                         <div class="list">
                             <span v-for="(value, index) in item?.tags" class="list">
-                                <a href="#" @click.stop="" class="post-tag">{{ value }}</a>
+                                <a :href="`/pages/tags/${value}`" @click.stop="updateParams()" class="post-tag">{{ value }}</a>
                                 <span v-if="index < item?.tags.length - 1">/</span>
                             </span>
                         </div>
-
                     </div>
-
                 </div>
                 <span class="post-desc">{{ item.description }}</span>
                 <!-- <div class="post-meta">
@@ -48,15 +42,16 @@
                 </div> -->
             </div>
         </div>
-
-    </div>
+    </TransitionGroup>
 </template>
 
 <script setup>
 import { useData, useRouter } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
+import useUrlSearchParams from '../utils/useUrlSearchParams.mjs';
 const { theme } = useData();
 const router = useRouter();
+const { params, updateParams } = useUrlSearchParams();
 const props = defineProps({
     listData: {
         type: [Array, String],
@@ -68,11 +63,12 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .post-list {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: var(--spacing-xl);
-    padding: 30px 0;
+    // padding: 30px 0;
 
     .post-item {
         position: relative;
@@ -89,7 +85,7 @@ const props = defineProps({
         border: 3px solid var(--color-card-border);
         border-radius: var(--radius-lg);
         box-shadow: var(--box-shadow);
-
+        // animation: fade-up 0.6s 0s backwards;
 
         &:hover {
             border-color: var(--color-primary);
@@ -287,6 +283,24 @@ const props = defineProps({
             }
         }
 
+        &.list-slide-enter-active {
+            transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
+            /* 自定义缓动函数，让动画更自然 */
+        }
+
+        &.list-slide-leave-active {
+            transition: all 0s cubic-bezier(0.5, 0, 0.5, 1);
+        }
+
+        /* 元素进入的起始状态：从右侧（例如 100px）滑入，并透明 */
+        &.list-slide-enter-from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        // &.list-slide-move {
+        //     transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
+        // }
     }
 }
 </style>

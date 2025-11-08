@@ -18,13 +18,19 @@
                         <!-- 步骤 3: feDisplacementMap (位移) -->
                         <feDisplacementMap in="SourceGraphic" in2="block-map" scale="10" xChannelSelector="R"
                             yChannelSelector="G" result="pixelated" />
+                        <!-- 步骤 4: feColorMatrix (颜色变化) -->
                         <feColorMatrix in="pixelated" type="saturate" values="0.2" />
-                        <!-- 步骤 4: animate (动画) -->
+                        <!-- <feColorMatrix in="pixelated" type="matrix" values="
+                            -1 0 0 0 1
+                            0 -1 0 0 1
+                            0 0 -1 0 1
+                            0 0 0 1 0" /> -->
+                        <!-- 步骤 5: animate (动画) -->
                         <animate xlink:href="#turbulence" attributeName="baseFrequency" dur="60s" keyTimes="0;0.5;1"
                             values="
                             0.001 0.1;
                             0.008 0.1;
-                            0.001 0.1" repeatCount="indefinite" />
+                            0.001 0.1" repeatCount="indefinite" result="animate-noise" />
                     </filter>
                 </defs>
             </svg>

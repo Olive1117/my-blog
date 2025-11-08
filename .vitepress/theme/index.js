@@ -14,10 +14,8 @@ import { h } from "vue";
 import App from "./App.vue";
 import "./style/main.scss";
 import Dynamicicon from './components/Dynamicicon.vue'
-import mitt from 'mitt';
 import { enhanceAppWithTabs } from "vitepress-plugin-tabs/client";
 
-const emitter = mitt();
 
 const Theme = {
   Layout: () => {
@@ -25,7 +23,6 @@ const Theme = {
   },
   enhanceApp({ app, router, siteData }) {
     app.component('Dynamicicon', Dynamicicon);
-    app.provide('eventBus', emitter);
     enhanceAppWithTabs(app);
   }
 };

@@ -8,6 +8,8 @@
 </template>
 <script setup>
 import { ref, computed, inject, onMounted, onUnmounted } from 'vue'
+import useUrlSearchParams from '../utils/useUrlSearchParams.mjs';
+const { params, updateParams } = useUrlSearchParams();
 const props = defineProps({
     total: {
         type: Number,
@@ -22,14 +24,16 @@ const props = defineProps({
         default: '/'
     },
 })
-const currentPage = ref(0);
+const currentPage = computed(() => params.value || 1);
 const emitter = inject('eventBus');
-console.log(currentPage.value);
+// console.log(currentPage.value);
 const update = () => { currentPage.value = Number(new URLSearchParams(window.location.search).get('page')) || 1 };
 const jumpPage = (pageItem) => {
-    currentPage.value = pageItem.pageNumber;
+    // currentPage.value = pageItem.pageNumber;
     window.history.pushState({}, '', pageItem.regularPath);
-    emitter.emit('page-content-updated', { time: Date.now() });
+    updateParams();
+    window.scrollTo({ top: 0 });
+    // console.log(currentPage.value);
 };
 const pageList = computed(() => {
     const totalPage = Math.ceil(props.total / props.pageSize);
@@ -47,15 +51,6 @@ const handlePopState = () => {
     update();
     emitter.emit('page-content-updated', { time: Date.now() });
 };
-onMounted(() => {
-    update();
-    emitter.on('page-content-updated', update);
-    window.addEventListener('popstate', handlePopState);
-});
-onUnmounted(() => {
-    emitter.off('page-content-updated', update);
-    window.removeEventListener('popstate', handlePopState);
-});
 </script>
 <style lang="scss" scoped>
 .pagination {
