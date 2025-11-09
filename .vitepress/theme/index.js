@@ -15,7 +15,7 @@ import App from "./App.vue";
 import "./style/main.scss";
 import Dynamicicon from './components/Dynamicicon.vue'
 import { enhanceAppWithTabs } from "vitepress-plugin-tabs/client";
-
+import { Analytics } from '@vercel/analytics/vue';
 
 const Theme = {
   Layout: () => {

@@ -19,6 +19,7 @@
     "markdown-it-container": "^4.0.0",
     "markdown-it-footnote": "^4.0.0",
     "mitt": "^3.0.1",
-    "vitepress-plugin-tabs": "^0.7.3"
+    "vitepress-plugin-tabs": "^0.7.3",
+    "vue-router": "^4.6.3"
   }
 }
