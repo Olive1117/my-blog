@@ -38,6 +38,7 @@ const handleIntersection = (entries) => {
     }
 };
 const getHeaders = (array) => {
+    if (typeof document === 'undefined') return;
     if (array && array.length > 0) {
         array.forEach((item) => {
             const dom = document.getElementById(item.slug);
@@ -68,8 +69,10 @@ const indicatorStyle = ref({
 });
 
 const updateIndicator = () => {
+    if (typeof document === 'undefined') return;
     // toc目录dom
     const tocDom = document.querySelector('.toc');
+    if (!tocDom) return;
     const tocTop = tocDom.getBoundingClientRect().top;
     const tocBottom = tocDom.getBoundingClientRect().bottom;
     // active高亮dom

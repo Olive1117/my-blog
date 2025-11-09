@@ -55,28 +55,36 @@ const isSingleLink = (value) => {
 
 const goto = (link) => {
     // router.go(link);
-    console.log("goto", link);
-    if (isExternalLink(link)) {
-        window.open(link);
-    } else {
-        router.go(link);
+    if (typeof window !== 'undefined') {
+        console.log("goto", link);
+        if (isExternalLink(link)) {
+            window.open(link);
+        } else {
+            router.go(link);
+        }
     }
 };
 
 const handleScroll = () => {
     // 检查滚动距离，并更新 isScrolled 的值
-    if (window.scrollY > scrollThreshold) {
-        isScrolled.value = true;
-    } else {
-        isScrolled.value = false;
+    if (typeof window !== 'undefined') {
+        if (window.scrollY > scrollThreshold) {
+            isScrolled.value = true;
+        } else {
+            isScrolled.value = false;
+        }
     }
 };
 onMounted(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+        window.addEventListener('scroll', handleScroll);
+    }
     handleScroll();
 });
 onUnmounted(() => {
-    window.removeEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('scroll', handleScroll);
+    }
 });
 </script>
 

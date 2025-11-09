@@ -25,15 +25,15 @@ const props = defineProps({
     },
 })
 const currentPage = computed(() => params.value || 1);
-const emitter = inject('eventBus');
 // console.log(currentPage.value);
-const update = () => { currentPage.value = Number(new URLSearchParams(window.location.search).get('page')) || 1 };
 const jumpPage = (pageItem) => {
     // currentPage.value = pageItem.pageNumber;
-    window.history.pushState({}, '', pageItem.regularPath);
-    updateParams();
-    window.scrollTo({ top: 0 });
-    // console.log(currentPage.value);
+    if (typeof window !== 'undefined') {
+        window.history.pushState({}, '', pageItem.regularPath);
+        updateParams();
+        window.scrollTo({ top: 0 });
+        // console.log(currentPage.value);
+    }
 };
 const pageList = computed(() => {
     const totalPage = Math.ceil(props.total / props.pageSize);
@@ -47,10 +47,7 @@ const pageList = computed(() => {
     }
     return list;
 });
-const handlePopState = () => {
-    update();
-    emitter.emit('page-content-updated', { time: Date.now() });
-};
+
 </script>
 <style lang="scss" scoped>
 .pagination {

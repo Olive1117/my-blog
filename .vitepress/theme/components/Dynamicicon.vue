@@ -1,12 +1,12 @@
 <template>
-    <Icon v-if="iconComponent" :size="props.size" :color="props.color" :tag="props.tag">
+    <IconComponent v-if="iconComponent" :size="props.size" :color="props.color" :tag="props.tag">
         <component :is="iconComponent" />
-    </Icon>
+    </IconComponent>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { Icon } from '@vicons/utils'
+import { ref, watch, onMounted } from 'vue'
+// import { Icon } from '@vicons/utils'
 import { Books, BrandGithub, BrandTwitter, Calendar, ChevronDown, ChevronsRight, ColorSwatch, Dots, ExternalLink, Folders, Hash, Home, InfoCircle, Language, Link, Moon, Movie, Notebook, Palette, Photo, Point, Search, Sun, ToggleLeft, ToggleRight, User } from '@vicons/tabler';
 
 const ICON_MAP = {
@@ -66,4 +66,13 @@ watch(
     },
     { immediate: true }
 )
+
+let IconComponent = ref(null);
+onMounted(async () => {
+    // 确保只在浏览器环境执行导入
+    if (typeof window !== 'undefined') {
+        const { Icon } = await import('@vicons/utils');
+        IconComponent.value = Icon;
+    }
+})
 </script>
