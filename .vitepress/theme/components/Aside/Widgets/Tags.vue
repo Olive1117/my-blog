@@ -66,6 +66,7 @@ const tags = theme.value.tagsData;
 
             .tags-count {
                 font-size: xx-small;
+                color: var(--color-text-second);
             }
 
             &:hover {
