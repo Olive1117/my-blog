@@ -1,8 +1,7 @@
 <template>
     <!-- <h1>文章列表</h1> -->
-    <TransitionGroup name="list-slide" tag="div" appear class="post-list">
-        <div v-for="(item, key, index) in listData" :key="item.regularPath" @click="router.go(item.regularPath)"
-            class="post-item">
+    <div class="post-list" v-if="showList">
+        <div v-for="item in listData" :key="item.regularPath" @click="router.go(item.regularPath)" class="post-item">
             <div v-if="item.img" class="post-cover">
                 <img v-if="item.img" :src="item?.img" :alt="item.title" class="post-img">
             </div>
@@ -17,7 +16,8 @@
                         <Dynamicicon icon="Books" class="icon" />
                         <div class="list">
                             <span v-for="cat in item?.categories" class="list">
-                                <a :href="`/pages/categories/${cat}`" @click.stop="updateParams()" class="post-category">
+                                <a :href="`/pages/categories/${cat}`" @click.stop="updateParams()"
+                                    class="post-category">
                                     {{ cat }}</a>
                             </span>
                         </div>
@@ -26,7 +26,8 @@
                         <Dynamicicon icon="Hash" class="icon" />
                         <div class="list">
                             <span v-for="(value, index) in item?.tags" class="list">
-                                <a :href="`/pages/tags/${value}`" @click.stop="updateParams()" class="post-tag">{{ value }}</a>
+                                <a :href="`/pages/tags/${value}`" @click.stop="updateParams()" class="post-tag">{{ value
+                                }}</a>
                                 <span v-if="index < item?.tags.length - 1">/</span>
                             </span>
                         </div>
@@ -42,15 +43,20 @@
                 </div> -->
             </div>
         </div>
-    </TransitionGroup>
+    </div>
+
+    <Pagination :total="total" :pageSize="pageSize" :basePath="basePath" v-if="showPagination" />
 </template>
 
 <script setup>
 import { useData, useRouter } from 'vitepress';
 import { formatDate } from '../utils/timeTools.mjs';
 import useUrlSearchParams from '../utils/useUrlSearchParams.mjs';
+import { watch, ref, nextTick, computed } from 'vue';
+import Pagination from './Pagination.vue';
 const { theme } = useData();
 const router = useRouter();
+const route = router.route;
 const { params, updateParams } = useUrlSearchParams();
 const props = defineProps({
     listData: {
@@ -58,6 +64,30 @@ const props = defineProps({
         default: () => [],
         required: false,
     },
+});
+const showList = ref(true);
+const listKey = ref(0);
+const pageSize = 3; // 每页显示的文章数量
+const basePath = route.path;
+console.log(props.listData);
+watch(() => props.listData, async (newVal, oldVal) => {
+    if (newVal.length !== oldVal.length || JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+        showList.value = false;
+        await nextTick();
+        listKey.value++;
+        showList.value = true;
+    }
+}, { deep: true })
+const total = computed(() => {
+    return props.listData.length;
+});
+const showPagination = computed(() => {
+    return total.value > pageSize;
+});
+const listData = computed(() => {
+    const startIndex = (params.value - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return props.listData.slice(startIndex, endIndex);
 });
 </script>
 
@@ -68,7 +98,9 @@ const props = defineProps({
     flex-direction: column;
     justify-content: space-between;
     gap: var(--spacing-xl);
+
     // padding: 30px 0;
+
 
     .post-item {
         position: relative;
@@ -85,7 +117,13 @@ const props = defineProps({
         border: 3px solid var(--color-card-border);
         border-radius: var(--radius-lg);
         box-shadow: var(--box-shadow);
-        // animation: fade-up 0.6s 0s backwards;
+        animation: fade-up 0.6s 0s backwards;
+
+        @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+                animation-delay: calc(#{$i} * 0.1s);
+            }
+        }
 
         &:hover {
             border-color: var(--color-primary);
@@ -282,25 +320,6 @@ const props = defineProps({
                 }
             }
         }
-
-        &.list-slide-enter-active {
-            transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
-            /* 自定义缓动函数，让动画更自然 */
-        }
-
-        &.list-slide-leave-active {
-            transition: all 0s cubic-bezier(0.5, 0, 0.5, 1);
-        }
-
-        /* 元素进入的起始状态：从右侧（例如 100px）滑入，并透明 */
-        &.list-slide-enter-from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        // &.list-slide-move {
-        //     transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
-        // }
     }
 }
 </style>

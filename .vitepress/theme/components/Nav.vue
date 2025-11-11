@@ -3,7 +3,7 @@
         <div :class="['main-nav', { scrolled: isScrolled }]">
             <div class="nav-left">
                 <a href="/" @click.prevent="emitter.emit('page-content-updated', { time: Date.now() })"
-                    class="logo">Oliver's Blog</a>
+                    class="logo">回到首页</a>
             </div>
             <div class="nav-center">
                 <a v-for="(value, index) in theme.nav" :key="index"

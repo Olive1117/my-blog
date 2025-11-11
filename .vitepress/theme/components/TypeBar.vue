@@ -1,24 +1,23 @@
 <template>
     <!-- <h1>标签列表</h1> -->
     <div class="type-bar">
-        <div class="all-type">
-            <a :href="basePath" @click="updateParams()"
-                :class="['type-item', { 'type-active': !paramName }]">首页</a>
-            <a v-for="(value, index) in list" :key="index" :href="`${basePath}/${value}`"
-                @click="updateParams()" :class="['type-item', { 'type-active': paramName === value }]">
+        <div class="all-type" ref="allTypeRef">
+            <a :href="basePath" @click="updateParams()" :class="['type-item', { 'type-active': !paramName }]">总文章</a>
+            <a v-for="(value, index) in list" :key="index" :href="`${basePath}/${value}`" @click="updateParams()"
+                :class="['type-item', { 'type-active': paramName === value }]">
                 {{ value }}
             </a>
         </div>
         <a :href="basePath" @click="updateParams()" class="type-more">
             <Dynamicicon icon="ChevronsRight" tag="span" size="24" />
-            <span>全部</span>
+            <span>展开</span>
         </a>
     </div>
 </template>
 
 <script setup>
 import { useData, useRoute } from 'vitepress';
-import { inject, computed } from 'vue';
+import { inject, computed, ref, onMounted, onUnmounted } from 'vue';
 import useUrlSearchParams from '../utils/useUrlSearchParams.mjs';
 const { theme, page } = useData();
 const { frontmatter, route } = useRoute();
@@ -34,12 +33,29 @@ const props = defineProps({
         default: '/'
     },
 });
-console.log("测试", props.basePath);
-// console.log("测试", window.location.pathname);
+// console.log("测试", props.basePath);
+const allTypeRef = ref(null);
+const handleWheel = (e) => {
+    // 检查滚轮事件是否在 .all-type 元素内部触发
+    if (allTypeRef.value && allTypeRef.value.contains(e.target)) {
+        console.log("触发滚轮事件！")
+        // 阻止默认的垂直滚动行为
+        e.preventDefault();
+        // 根据滚轮方向平移水平滚动条
+        allTypeRef.value.scrollLeft += e.deltaY;
+    }
+};
+onMounted(() => {
+    if (allTypeRef.value) { allTypeRef.value.addEventListener('wheel', handleWheel); }
+});
+onUnmounted(() => {
+    if (allTypeRef.value) { allTypeRef.value.removeEventListener('wheel', handleWheel); }
+});
 </script>
 
 <style lang="scss" scoped>
 .type-bar {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,9 +71,22 @@ console.log("测试", props.basePath);
     &:hover {
         border-color: var(--color-primary);
 
-        .type-more::before {
+        &::after {
             background-color: var(--color-primary);
         }
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        width: 3px;
+        height: 50%;
+        border-radius: 2px;
+        left: calc(100% - 90px);
+        background-color: transparent;
+        vertical-align: middle;
+        transition: 0.3s ease;
     }
 
     .all-type {
@@ -68,6 +97,7 @@ console.log("测试", props.basePath);
         // background-color: aqua;
         flex-grow: 1;
         overflow: auto;
+        scroll-behavior: smooth;
 
         .type-active {
             color: var(--color-primary);
@@ -80,9 +110,11 @@ console.log("测试", props.basePath);
 
         mask: linear-gradient(90deg,
             #fff 0,
-            #fff 80%,
-            hsla(0, 0%, 100%, 0.6) 85%,
+            #fff 85%,
+            hsla(0, 0%, 100%, 0.7) 90%,
             hsla(0, 0%, 100%, 0) 95%);
+
+
 
         .type-item {
             border-radius: var(--radius-md);
@@ -99,29 +131,10 @@ console.log("测试", props.basePath);
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
         gap: var(--spacing-xs);
         padding: 6px 10px;
         border-radius: var(--radius-md);
         z-index: 100;
-
-        &::before {
-            content: "";
-            position: absolute;
-            display: inline-block;
-            width: 4px;
-            height: 64%;
-            border-radius: 2px;
-            background-color: var(--color-card-border);
-            vertical-align: middle;
-            left: -10px;
-            transition: 0.3s ease;
-        }
-
-        &:hover {
-            background-color: var(--color-primary-light);
-            color: var(--color-primary);
-        }
     }
 }
 </style>

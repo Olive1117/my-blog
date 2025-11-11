@@ -40,6 +40,19 @@ const isPostPage = computed(() => {
   padding: 0 100px;
   max-width: 1440px;
   margin: 0 auto;
+  // animation: fadeIn 1s ease-out 0s 1 forwards;
+
+  // @keyframes fadeIn {
+  //   0% {
+  //     opacity: 0;
+  //   }
+  //   30% {
+  //     opacity: 0;
+  //   }
+  //   100% {
+  //     opacity: 1;
+  //   }
+  // }
 
   @media (max-width: 576px) {
     padding: 0;
