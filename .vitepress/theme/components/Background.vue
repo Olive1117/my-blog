@@ -1,5 +1,5 @@
 <template>
-    <Teleport to="body">
+    <teleport to="body">
         <div class="background">
             <img src="/images/IMG_2550.PNG?url" alt="">
             <div class="background-overlay"></div>
@@ -27,7 +27,7 @@
                             0 0 -1 0 1
                             0 0 0 1 0" /> -->
                         <!-- 步骤 5: animate (动画) -->
-                        <animate xlink:href="#turbulence" attributeName="baseFrequency" dur="60s" keyTimes="0;0.5;1"
+                        <animate xlink:href="#turbulence" attributeName="baseFrequency" dur="30s" keyTimes="0;0.5;1"
                             values="
                             0.001 0.1;
                             0.008 0.1;
@@ -37,7 +37,7 @@
             </svg>
 
         </div>
-    </Teleport>
+    </teleport>
 </template>
 
 <script setup>

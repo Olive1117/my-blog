@@ -26,21 +26,14 @@
                         <Dynamicicon icon="Hash" class="icon" />
                         <div class="list">
                             <span v-for="(value, index) in item?.tags" class="list">
-                                <a :href="`/pages/tags/${value}`" @click.stop="updateParams()" class="post-tag">{{ value
-                                }}</a>
+                                <a :href="`/pages/tags/${value}`" @click.stop="updateParams()" class="post-tag">{{
+                                    value}}</a>
                                 <span v-if="index < item?.tags.length - 1">/</span>
                             </span>
                         </div>
                     </div>
                 </div>
                 <span class="post-desc">{{ item.description }}</span>
-                <!-- <div class="post-meta">
-                    <span v-for="(value, key, index) in item?.tags" class="post-tag">
-                        <i>#</i>
-                        {{ value }}
-                    </span>
-                    <span class="post-date">{{ formatDate(item.date, "YYYY-MM-DD") }}</span>
-                </div> -->
             </div>
         </div>
     </div>
@@ -99,9 +92,6 @@ const listData = computed(() => {
     justify-content: space-between;
     gap: var(--spacing-xl);
 
-    // padding: 30px 0;
-
-
     .post-item {
         position: relative;
         display: flex;
@@ -109,8 +99,6 @@ const listData = computed(() => {
         flex-direction: row-reverse;
         align-items: stretch;
         gap: var(--spacing-lg);
-        // min-height: 100px;
-        // height: 256px;
         padding: var(--spacing-md);
         transition: 0.3s ease;
         background-color: var(--color-card-background);
@@ -151,7 +139,6 @@ const listData = computed(() => {
         }
 
         .post-content {
-            // flex: 1 1 75%;
             min-width: 0;
             width: 100%;
             display: flex;
@@ -161,12 +148,6 @@ const listData = computed(() => {
 
 
             .post-title {
-                // flex: 1;
-                // display: -webkit-box;
-                // overflow: hidden;
-                // word-break: break-all;
-                // -webkit-box-orient: vertical;
-                // -webkit-line-clamp: 2;
                 font: var(--title);
             }
 
@@ -181,13 +162,6 @@ const listData = computed(() => {
                 gap: var(--spacing-sm);
                 font: var(--type);
                 white-space: nowrap;
-                // overflow: hidden;
-                // text-overflow: ellipsis;
-                // mask: linear-gradient(90deg,
-                //         #fff 0,
-                //         #fff 90%,
-                //         hsla(0, 0%, 100%, 0.6) 95%,
-                //         hsla(0, 0%, 100%, 0) 100%);
 
                 .list {
                     display: flex;
@@ -212,10 +186,6 @@ const listData = computed(() => {
                         color: var(--color-primary);
                     }
 
-                    // .post-date {
-                    //     white-space: nowrap;
-                    // }
-
                     .post-category {
                         display: flex;
                         align-items: center;
@@ -235,7 +205,6 @@ const listData = computed(() => {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        // background-color: bisque;
                         height: 30px;
                         padding: 0 var(--spacing-sm);
                         border-radius: var(--radius-md);
@@ -244,28 +213,11 @@ const listData = computed(() => {
                             background-color: var(--color-primary-light);
                             color: var(--color-primary);
                         }
-
-                        // &::after {
-                        //     content: '/';
-                        // }
-
-                        // &:last-child::after {
-                        //     content: '';
-                        // }
                     }
                 }
-
-
             }
 
             .post-desc {
-                // flex: 1;
-                // background-color: rgb(229, 255, 196);
-                // display: -webkit-box;
-                // overflow: hidden;
-                // word-break: break-all;
-                // -webkit-box-orient: vertical;
-                // -webkit-line-clamp: 2;
                 font: var(--desc);
             }
 
@@ -319,6 +271,10 @@ const listData = computed(() => {
                     backface-visibility: hidden;
                 }
             }
+        }
+
+        @media (max-width: 576px) {
+            border-radius: 0;
         }
     }
 }

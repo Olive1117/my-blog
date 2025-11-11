@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, markRaw } from 'vue'
 // import { Icon } from '@vicons/utils'
-import { Books, BrandGithub, BrandTwitter, Calendar, ChevronDown, ChevronsRight, ColorSwatch, Dots, ExternalLink, Folders, Hash, Home, InfoCircle, Language, Link, Moon, Movie, Notebook, Palette, Photo, Point, Search, Sun, ToggleLeft, ToggleRight, User } from '@vicons/tabler';
+import { ArrowBigTop, Books, BrandGithub, BrandTwitter, Calendar, ChevronDown, ChevronsRight, ColorSwatch, Dots, ExternalLink, Folders, Hash, Home, InfoCircle, Language, Link, Moon, Movie, Notebook, Palette, Photo, Point, Search, Sun, ToggleLeft, ToggleRight, User } from '@vicons/tabler';
 
 const ICON_MAP = {
     'Home': Home,
@@ -36,6 +36,7 @@ const ICON_MAP = {
     'Search': Search,
     'ColorSwatch': ColorSwatch,
     'Palette': Palette,
+    'ArrowBigTop': ArrowBigTop,
 }
 type IconName = keyof typeof ICON_MAP;
 const props = defineProps<{

@@ -37,7 +37,7 @@ const isPostPage = computed(() => {
 
 <style scoped lang="scss">
 .main {
-  padding: 0 100px;
+  padding: 0 100px 200px 100px;
   max-width: 1440px;
   margin: 0 auto;
   // animation: fadeIn 1s ease-out 0s 1 forwards;

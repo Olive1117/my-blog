@@ -21,12 +21,9 @@ const props = defineProps({
         required: false,
     }
 });
-// console.log("子组件的props", props.activeHash);
 const isActive = (header) => {
     return props.activeHash.includes(header.slug);
 }
-onMounted(() => {
-})
 </script>
 
 <style lang="scss" scoped>

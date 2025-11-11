@@ -7,13 +7,9 @@
 
 <style lang="scss">
 .banner {
-    // position: fixed;
     flex-direction: column;
-    // justify-self: center;
-    // align-self: center;
     text-align: center;
     font-size: 20px;
-    // background-color: #f5f5f5;
     margin: 100px 0;
     line-height: 50px;
     color: #ffffff;

@@ -3,8 +3,6 @@
         <!-- <h2>目录</h2> -->
         <div class="toc-indicator" :style="indicatorStyle"></div>
         <toc-item :headers="page.headers" :active-hash="activeHash" />
-
-        <button @click="gototop">回到最顶上</button>
     </div>
 </template>
 
@@ -12,31 +10,34 @@
 import { useData } from 'vitepress'
 import TocItem from './TocItem.vue';
 import { onMounted, onUnmounted, ref, nextTick, watch } from 'vue';
-
 const { page } = useData();
-const gototop = () => {
-    window.scrollTo(0, 0);
-}
-// console.log("page", page.value.headers);
-// console.log("headers", page.value.headers[0].children[0]);
 let observer;
+// 标题dom元素list
 const headers = ref([]);
+// 可见标题dom元素list
 const visibleHeaders = ref([]);
+// 当前激活的标题hash
 const activeHash = ref([]);
+// 滑块指示器的状态
+const indicatorStyle = ref({
+    top: '0px',
+    bottom: '100%',
+});
 
+// 视口监听出现标题
 const handleIntersection = (entries) => {
     for (const entry of entries) {
         if (entry.isIntersecting) {
             visibleHeaders.value.push(entry.target);
-            // console.log("add!", entry.target);
         } else {
             visibleHeaders.value = visibleHeaders.value.filter(
                 target => target !== entry.target
             );
-            // console.log("not visibleHeaders", entry.target.id);
         }
     }
 };
+
+// 获取标题dom元素list
 const getHeaders = (array) => {
     if (typeof document === 'undefined') return;
     if (array && array.length > 0) {
@@ -49,6 +50,8 @@ const getHeaders = (array) => {
         });
     }
 };
+
+// 初始化IntersectionObserver
 const initObserver = () => {
     nextTick(() => {
         observer = new IntersectionObserver(handleIntersection, {
@@ -61,13 +64,7 @@ const initObserver = () => {
     });
 };
 
-// **新增：滑块指示器的状态**
-const indicatorStyle = ref({
-    top: '0px',
-    bottom: '100%',
-    height: '0px',
-});
-
+// 更新滑块指示器函数
 const updateIndicator = () => {
     if (typeof document === 'undefined') return;
     // toc目录dom
@@ -79,20 +76,20 @@ const updateIndicator = () => {
     const activeDom = document.querySelectorAll('.active.header-link');
     const activeTop = activeDom[0]?.getBoundingClientRect().top;
     const activeBottom = activeDom[activeDom.length - 1]?.getBoundingClientRect().bottom;
-    // console.log("activeDom", activeDom, "activeTop", activeDom[0], "activeBottom", activeDom[activeDom.length - 1], "tocDom", document.querySelector('.toc'));
-    // console.log("tocTop", tocTop, "tocBottom", tocBottom, "activeTop", activeTop, "activeBottom", activeBottom);
     indicatorStyle.value = {
         top: `${activeTop - tocTop}px`,
         bottom: `${tocBottom - activeBottom}px`,
     }
 
 };
-// **修改：监听 activeHash 变化时调用更新函数**
+
+// 更新滑块指示器
 watch(activeHash, () => {
     // 确保在 DOM 更新后执行
     nextTick(updateIndicator);
 }, { deep: true, immediate: true });
 
+// 计算当前应该高亮的标题 slug
 watch(visibleHeaders, (newVH, oldVH) => {
     activeHash.value = [];
     if (newVH.length === 0) {
@@ -125,14 +122,13 @@ watch(visibleHeaders, (newVH, oldVH) => {
         // 添加完头标题后，再添加可见标题，保持dom.id有序
         newVH.forEach((header) => {
             activeHash.value.push(header.id);
-            // console.log("visibleHeaders changed", header.hash);
         });
     }
 }, { deep: true });
 
 onMounted(() => {
-    initObserver();
     getHeaders(page.value.headers);
+    initObserver();
 });
 onUnmounted(() => {
     if (observer) {

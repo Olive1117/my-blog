@@ -20,10 +20,6 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    page: {
-        type: Number,
-        default: 1,
-    },
 });
 const { theme } = useData();
 </script>

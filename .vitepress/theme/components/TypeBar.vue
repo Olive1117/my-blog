@@ -114,8 +114,6 @@ onUnmounted(() => {
             hsla(0, 0%, 100%, 0.7) 90%,
             hsla(0, 0%, 100%, 0) 95%);
 
-
-
         .type-item {
             border-radius: var(--radius-md);
             padding: 6px 10px;
