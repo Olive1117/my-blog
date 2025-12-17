@@ -2,7 +2,7 @@
     <header class="main-header">
         <div :class="['main-nav', { 'scrolled': isScrolled }]">
             <div class="nav-left">
-                <a href="/" @click.prevent="" class="logo">回到首页</a>
+                <a href="/" @click.prevent="updateParams" class="logo">回到首页</a>
             </div>
             <div :class="['nav-center', { 'title-show': isTitleShow }]">
                 <div class="site-menu">
@@ -52,6 +52,7 @@
 import { useData, useRouter } from 'vitepress'
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { throttle } from '../utils/commonTools.mjs'
+import useUrlSearchParams from '../utils/useUrlSearchParams.mjs';
 const { site, theme, frontmatter } = useData();
 // console.log("site", site, "theme", theme);
 const router = useRouter();
@@ -61,6 +62,7 @@ const scrollThreshold = 10;
 // 记录用户是否向下滚动
 const isTitleShow = ref(false);
 const lastScrollY = ref(0);
+const { params, updateParams } = useUrlSearchParams();
 const goTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     isTitleShow.value = false;
@@ -92,8 +94,8 @@ const handleTitleShow = () => {
     isTitleShow.value = lastScrollY.value < window.scrollY;
     lastScrollY.value = window.scrollY;
 };
-const newhandleScroll = throttle(handleScroll, 200);
-const newhandleTitleShow = throttle(handleTitleShow, 200);
+const newhandleScroll = throttle(handleScroll, 100);
+const newhandleTitleShow = throttle(handleTitleShow, 100);
 onMounted(() => {
     window.addEventListener('scroll', () => { newhandleScroll(); newhandleTitleShow(); });
     newhandleScroll();

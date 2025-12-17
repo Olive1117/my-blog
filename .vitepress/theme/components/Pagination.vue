@@ -24,7 +24,7 @@ const props = defineProps({
         default: '/'
     },
 })
-const currentPage = computed(() => params.value || 1);
+const currentPage = computed(() => params.value || -1);
 console.log(currentPage.value);
 const jumpPage = (pageItem) => {
     // currentPage.value = pageItem.pageNumber;

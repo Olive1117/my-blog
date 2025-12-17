@@ -22,6 +22,23 @@ const props = defineProps({
     },
 });
 const { theme } = useData();
+
+// function add(m) {
+//     let s = m;
+//     function innerFunc(n) {
+//         s += n;
+//         return innerFunc;
+//     }
+//     innerFunc.print = function () {
+//         console.log(s);
+//         return innerFunc;
+//     };
+//     return innerFunc;
+// };
+
+// let a = add(1)(2)(3).print()(4).print()(5).print();
+// console.log(a);
+// a(4).print();
 </script>
 
 <style lang="scss" scoped>
@@ -34,10 +51,12 @@ const { theme } = useData();
     margin-top: 50px;
     margin-bottom: 50px;
     width: 100%;
+
     .aside {
         // flex: 0.25;
         width: 210px;
     }
+
     .post-content {
         // width: 100%;
         flex: 1;
@@ -48,9 +67,11 @@ const { theme } = useData();
     @media (max-width: 960px) {
         flex-direction: column;
         align-items: center;
+
         .aside {
             display: none;
         }
+
         // justify-content: center;
         .post-content {
             width: 100%;
